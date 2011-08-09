@@ -13,8 +13,15 @@ public class SCActionBuildUnit extends SCAction {
 		
 		if(complete) {
 			f = false;
-		} else {
-			
+		} else if(prereq!=null && !model.isObjectComplete(prereq)) {
+			f = false;
+			errorMsg = "PREREQ";
+		} else if(prereq!=null && !model.isObjectComplete(build)) {
+			f = false;
+			errorMsg = "BUILD";
+		} else if(!model.addUnitToQueue(name)) {
+			f = false;
+			errorMsg = "UNKNOWN";
 		}
 		if(f) {
 			complete = true;

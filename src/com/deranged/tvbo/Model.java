@@ -20,7 +20,7 @@ public class Model {
 
 	// TIMINGS //////////////////////////////////
 	private int time = 0;
-	private int maxTime = 3*60;
+	private int maxTime = 4*60;
 	private int minerals;
 	private int totalMineralsMined;
 	private int totalGasMined;
@@ -168,9 +168,22 @@ public class Model {
 		mineralCost.put("Marauder", 100);
 		// BUILDINGS /////
 		mineralCost.put("SupplyDepot", 100);
+		mineralCost.put("CommandCenter", 400);
 		mineralCost.put("Refinery", 75);
 		mineralCost.put("Barracks", 150);
+		mineralCost.put("Bunker", 100);
+		mineralCost.put("EngineeringBay", 125);
+		mineralCost.put("Factory", 150);
+		mineralCost.put("Starport", 150);
 		mineralCost.put("OrbitalCommand", 150);
+		mineralCost.put("PlanetaryFortress", 150);
+		mineralCost.put("GhostAcademy", 150);
+		mineralCost.put("FusionCore", 150);
+		mineralCost.put("Armory", 150);
+		mineralCost.put("TechLab", 50);
+		mineralCost.put("Reactor", 50);
+		mineralCost.put("MissileTurret", 100);
+		mineralCost.put("SensorTower", 125);
 		
 		// GAS COST //////////////////////////////////////////////////////
 		// UNITS //
@@ -180,7 +193,16 @@ public class Model {
 		// BUILDINGS //
 		gasCost.put("SupplyDepot", 0);
 		gasCost.put("Barracks", 0);
+		gasCost.put("Factory", 100);
+		gasCost.put("Starport", 100);
 		gasCost.put("OrbitalCommand", 0);
+		gasCost.put("PlanetaryFortress", 150);
+		gasCost.put("GhostAcademy", 50);
+		gasCost.put("FusionCore", 150);
+		gasCost.put("Armory", 100);
+		gasCost.put("TechLab", 25);
+		gasCost.put("Reactor", 50);
+		gasCost.put("SensorTower", 100);
 		
 		// TIMES /////////////////////////////////////////////////////////
 		// UNITS //
@@ -193,8 +215,20 @@ public class Model {
 		times.put("Refinery", 30);
 		times.put("SupplyDepot", 30);
 		times.put("Barracks", 60);
+		times.put("Bunker", 40);
+		times.put("Factory", 60);
+		times.put("Starport", 50);
+		times.put("EngineeringBay", 35);
 		times.put("OrbitalCommand", 35);
+		times.put("PlanetaryFortress", 50);
 		times.put("CalldownSupply", 30);
+		times.put("GhostAcademy", 40);
+		times.put("FusionCore", 65);
+		times.put("Armory", 65);
+		times.put("TechLab", 25);
+		times.put("Reactor", 50);
+		times.put("SensorTower", 25);
+		times.put("MissileTurret", 25);
 		
 		// FOOD //////////////////////////////////////////////////////////
 		foods.put("SCV", 1);
@@ -223,8 +257,10 @@ public class Model {
 			action = new SCActionMule(this, x, y);
 		} else if(dropDown.equals("TransferToGas")) {
 			action = new SCActionTransferToGas(this, x, y);
-		} else {
+		} else if(dropDown.equals("SCV")) {
 			action = new SCActionBuildSCV(this, x, y);
+		} else {
+			action = new SCActionBuildUnit(this, x, y, dropDown);
 			// TODO set to SCActionBuildUnit
 		}
 		
@@ -703,6 +739,32 @@ public class Model {
 			return false;
 		}
 		
+	}
+
+	public boolean addUnitToQueue(String name) {
+		String build = getBuild(name);
+		int i = 0;
+		int building=-1;
+		boolean found = false;
+		while(!found && i < objects.size()) {
+			if(objects.get(i).getName().equals(build) && objects.get(i).isComplete() && objects.get(i).getProgress()==0) {
+				if(((SCStructure)objects.get(i)).getQueueLength()==0) {
+					found=true;
+					building=i;
+				}
+			}
+			i++;
+		}
+		if(found) {
+			if(((SCStructure)objects.get(building)).addObjectToQueue(name)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+
 	}
 	
 	public void selectAction(int x, int y) {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Actions>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>0</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>17</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>34</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>51</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>SupplyDepot</Name>
+    <StartTime>55</StartTime>
+    <Y>2</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>68</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>85</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>Barracks</Name>
+    <StartTime>95</StartTime>
+    <Y>2</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>102</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildRefinery">
+    <Name>Refinery</Name>
+    <StartTime>112</StartTime>
+    <Y>3</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>120</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>137</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionUpgradeBase">
+    <Name>OrbitalCommand</Name>
+    <StartTime>155</StartTime>
+    <Y>1</Y>
+  </Action>
+</Actions>
