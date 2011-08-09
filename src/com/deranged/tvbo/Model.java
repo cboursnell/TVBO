@@ -45,6 +45,7 @@ public class Model {
 	private HashMap<String, Integer> foods;
 	private HashMap<String, Integer> supplies;
 	private HashMap<String, String> build;
+	private HashMap<String, String> tech;
 	
 	// ARRAYLISTS ///////////////////////////////
 	private ArrayList<Base> bases;
@@ -160,6 +161,7 @@ public class Model {
 		times = new HashMap<String, Integer>();
 		prereqs = new HashMap<String, String>();
 		build = new HashMap<String, String>();
+		tech = new HashMap<String, String>();
 		
 		// MINERAL COST //////////////////////////////////////////////////
 		//    UNITS     //
@@ -239,10 +241,34 @@ public class Model {
 		// PREREQ ////////////////////////////////////////////////////////
 		prereqs.put("Barracks", "SupplyDepot");
 		prereqs.put("OrbitalCommand", "Barracks");
-		prereqs.put("Marauder", "TechLab");
+		prereqs.put("Bunker", "Barracks");
+		prereqs.put("Ghost", "GhostAcademy");
+		prereqs.put("Thor", "Armory");
+		prereqs.put("Battlecruiser", "FusionCore");
+		prereqs.put("MissileTurret", "EngineeringBay");
+		prereqs.put("PlanetaryFortress", "EngineeringBay");
 		// BUILD /////////////////////////////////////////////////////////
 		build.put("Marine", "Barracks");
 		build.put("Marauder", "Barracks");
+		build.put("Reaper", "Barracks");
+		build.put("Ghost", "Barracks");
+		build.put("Hellion", "Factory");
+		build.put("SiegeTank", "Factory");
+		build.put("Thor", "Factory");
+		build.put("Medivac", "Starport");
+		build.put("Viking", "Starport");
+		build.put("Banshee", "Starport");
+		build.put("Raven", "Starport");
+		build.put("Battlecruiser", "Starport");
+		// TECH //////////////////////////////////////////////////////////
+		tech.put("Marauder", "TechLab");
+		tech.put("Reaper", "TechLab");
+		tech.put("Ghost", "TechLab");
+		tech.put("SiegeTank", "TechLab");
+		tech.put("Thor", "TechLab");
+		tech.put("Banshee", "TechLab");
+		tech.put("Raven", "TechLab");
+		tech.put("Battlecruiser", "TechLab");
 	}
 	
 	public void addUnitAction(String dropDown) {
@@ -924,6 +950,16 @@ public class Model {
 		String s;
 		try {
 			s = build.get(n);
+		} catch (NullPointerException e) {
+			//System.out.println("Error: <Model:getBuild> Can't find build for " + n + " - " + e);
+			s = null;
+		}
+		return s;
+	}
+	public String getTech(String n) {
+		String s;
+		try {
+			s = tech.get(n);
 		} catch (NullPointerException e) {
 			//System.out.println("Error: <Model:getBuild> Can't find build for " + n + " - " + e);
 			s = null;

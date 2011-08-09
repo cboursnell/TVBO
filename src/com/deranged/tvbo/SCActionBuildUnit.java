@@ -8,8 +8,9 @@ public class SCActionBuildUnit extends SCAction {
 	
 	public boolean execute() {
 		boolean f = true;
-		String prereq = model.getPrereq(name); // eg tech lab
-		String build = model.getBuild(name);   // barracks
+		String prereq = model.getPrereq(name); // eg armory for thor
+		String build = model.getBuild(name);   // factory for thor
+		String tech = model.getTech(name);   // eg techlab for thor
 		
 		if(complete) {
 			f = false;
@@ -19,6 +20,9 @@ public class SCActionBuildUnit extends SCAction {
 		} else if(prereq!=null && !model.isObjectComplete(build)) {
 			f = false;
 			errorMsg = "BUILD";
+		} else if(tech!=null && !model.isObjectComplete(tech)) {
+			f = false;
+			errorMsg = "TECHLAB";
 		} else if(!model.addUnitToQueue(name)) {
 			f = false;
 			errorMsg = "UNKNOWN";
