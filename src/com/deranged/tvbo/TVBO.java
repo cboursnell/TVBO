@@ -2,6 +2,8 @@ package com.deranged.tvbo;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.SystemColor;
@@ -25,6 +27,8 @@ import java.awt.event.KeyEvent;
 import java.awt.Font;
 import javax.swing.JToggleButton;
 import java.awt.Color;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class TVBO {
 
@@ -55,8 +59,8 @@ public class TVBO {
 	private JButton		    clearButton;
 	private JButton		    printButton;
 
-	private int width;
-	private int height;
+	private int frameWidth=1600;
+	private int frameHeight=1000;
 
 	public static void main(String[] args) {
 		try {
@@ -314,11 +318,28 @@ public class TVBO {
 		sidePanel.setLayout(gl_sidePanel);
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setResizable(true);
-		frame.setMinimumSize(new Dimension(1300, 800));
+		frame.setMinimumSize(new Dimension(800, 500));
+		Toolkit toolkit =  Toolkit.getDefaultToolkit ();
+		Dimension dim = toolkit.getScreenSize();
+		if(dim.width<frameWidth) {
+			frameWidth=dim.width;
+		}
+		if(dim.height<frameHeight) {
+			frameHeight=dim.height;
+		}
+		frame.setBounds(0, 0, frameWidth, frameHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// EVENT HANDLERS /////////////////////////////////////////////////////////////////////////
 
-
+		frame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				model.setWidth(viewPanel.getWidth());
+				model.setHeight(viewPanel.getHeight());
+				System.out.println(model.getWidth() +" x "+model.getHeight());
+			}
+		});
+		
 		viewPanel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				model.selectAction(e.getX(), e.getY());
@@ -387,7 +408,7 @@ public class TVBO {
 					model.reset();
 					model.play();
 					viewPanel.repaint();		
-				} else if(e.getKeyCode()==KeyEvent.VK_DELETE) {
+				} else if(e.getKeyCode()==KeyEvent.VK_DELETE || e.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
 					model.deleteAction();
 					model.reset();
 					model.play();

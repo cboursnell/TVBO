@@ -20,7 +20,7 @@ public class Model {
 
 	// TIMINGS //////////////////////////////////
 	private int time = 0;
-	private int maxTime = 4*60;
+	private int maxTime = 6*60;
 	private int minerals;
 	private int totalMineralsMined;
 	private int totalGasMined;
@@ -30,8 +30,8 @@ public class Model {
 	private int food = 0;
 	
 	// GRAPHICS PARAMETERS //////////////////////
-	private int width=1200;
-	private int height=800;
+	private int width=1400;
+	private int height=900;
 	private double scale = 3.0;
 	private int scroll = 0;
 	private int border = 40;
