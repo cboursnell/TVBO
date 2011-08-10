@@ -1,9 +1,6 @@
 package com.deranged.tvbo;
 
 public class SCStructure extends SCObject {
-	// TODO Add support for reactor. Possibly remove progress and buildtime for making units and research
-	//        and use only the progress of 'constructing' and 'constructing2'
-	//      Add maxQueueLength which is 1 for normal and 2 for with reactor
 	protected int queue;
 	protected int supply = 0;
 	protected SCObject constructing;

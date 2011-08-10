@@ -347,7 +347,11 @@ public class TVBO {
 		
 		viewPanel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				model.selectAction(e.getX(), e.getY());
+				if(e.isShiftDown()) {
+					model.selectMultipleAction(e.getX(), e.getY());
+				} else {
+					model.selectAction(e.getX(), e.getY());
+				}
 				viewPanel.requestFocus();
 				viewPanel.repaint();
 				textArea.setText(model.setTotalsText());
@@ -410,6 +414,21 @@ public class TVBO {
 					viewPanel.repaint();			
 				} else if(e.getKeyCode()==KeyEvent.VK_S||e.getKeyCode()==KeyEvent.VK_DOWN|| e.getKeyCode()==KeyEvent.VK_NUMPAD2) {
 					model.moveSelected(0,1);
+					model.reset();
+					model.play();
+					viewPanel.repaint();		
+				} else if(e.getKeyCode()==KeyEvent.VK_Q|| e.getKeyCode()==KeyEvent.VK_NUMPAD7) {
+					model.moveSelected(-30,0);
+					model.reset();
+					model.play();
+					viewPanel.repaint();			
+				} else if(e.getKeyCode()==KeyEvent.VK_E|| e.getKeyCode()==KeyEvent.VK_NUMPAD9) {
+					model.moveSelected(30,0);
+					model.reset();
+					model.play();
+					viewPanel.repaint();		
+				} else if(e.getKeyCode()==KeyEvent.VK_R ||e.getKeyCode()==KeyEvent.VK_NUMPAD5) {
+					model.moveSelectedToEarliest();
 					model.reset();
 					model.play();
 					viewPanel.repaint();		

@@ -912,6 +912,29 @@ public class Model {
 		} 		
 		return found;
 	}
+	
+	public void selectMultipleAction(int x, int y) {
+		x -= border;
+		y -= border;
+		y /= spacing;
+		x /= scale;
+		x += scroll;
+		
+		int a = 0;
+		int size = actions.size();
+		boolean f = false;
+		while (!f && a < size) {
+			if (x >= actions.get(a).getStartTime()
+					&& x < actions.get(a).getStartTime() + actions.get(a).getDuration()
+					&& y >= actions.get(a).getY()
+					&& y < actions.get(a).getY() + 1) {
+				actions.get(a).select();
+				f=true;
+				//System.out.println("Selecting action " + a);
+			}
+			a++;
+		}
+	}
 
 	public void selectAction(int x, int y) {
 		int x2=x;
@@ -979,6 +1002,82 @@ public class Model {
 			if (actions.get(i).isSelected()) {
 				actions.get(i).addStartTime(x);
 				actions.get(i).moveY(y);
+			}
+		}
+	}
+	public void moveSelectedToEarliest() {
+		SCAction action;
+		int x;
+		int y;
+		int dur;
+		int x2;
+		int end;
+		int end2;
+		int size = actions.size();
+		for(int i = 0; i < size; i++) {
+			if(actions.get(i).isSelected()) {
+				action = actions.get(i);
+				if(action.isComplete()) {
+					while(action.getStartTime()>0 && action.isComplete()) {
+						action.addStartTime(-1);
+						this.reset();
+						this.play();
+						if(!action.isComplete()) {
+							action.addStartTime(1);
+						}
+					}
+				} else {
+					int r = action.getStartTime();
+					while(action.getStartTime()<maxTime && !action.isComplete()) {
+						action.addStartTime(1);
+						this.reset();
+						this.play();
+					}
+					if(!action.isComplete()) {
+						action.setStartTime(r);
+					}
+				}
+
+				x = action.getStartTime();
+				y = action.getY();
+				dur = getTime(action.getName());
+				end = x + dur;
+				boolean space = false;
+				SCAction action2;
+				while(!space) {
+					space=true;
+					for(int j = 0; j < size; j++) {
+						if(i!=j) {
+							action2 = actions.get(j);
+							if(action2.getY() == y) {
+								x2=action2.getStartTime();
+								end2=action2.getStartTime()+action2.getDuration();
+
+								if(x <= x2 && x2<end && end<=end2) {
+									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									space=false;
+								} else if(x2<x && x<end2 && end2<end) {
+									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									space=false;
+								} else if(x<x2 && end2<end) {
+									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									space=false;
+								} else if(x2<x && end<end2) {
+									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									space=false;
+								} else {
+								}
+								
+							}
+						}
+					}
+					if(!space) {
+						y++;
+					}
+				}
+				if(space) {
+					action.setY(y);
+				}
 			}
 		}
 	}
