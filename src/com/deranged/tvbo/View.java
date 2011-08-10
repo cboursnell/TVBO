@@ -240,5 +240,30 @@ public class View extends JPanel {
 		//minus sign
 		g.drawRect(width-border-142, ay+11, 24, 7);
 		
+		// MARQUEE SELECTION /////////////////////////////////////////////
+		
+		int mX1=model.getmX1();
+		int mY1=model.getmY1();
+		int mX2=model.getmX2();
+		int mY2=model.getmY2();
+		if(mX1!=mX2 && mY1!=mY2) {
+			if(mX2<mX1) {
+				int tmp = mX2;
+				mX2 = mX1;
+				mX1 = tmp;
+			} // make mY1 < mY2
+			if(mY2<mY1) {
+				int tmp = mY2;
+				mY2 = mY1;
+				mY1 = tmp;
+			} // make mY1 < mY2
+			g.setColor(new Color(150,150,255,50));
+			g.fillRect(mX1, mY1, mX2-mX1, mY2-mY1);
+			g.setColor(new Color(100,100,200,150));
+			g.drawRect(mX1, mY1, mX2-mX1, mY2-mY1);
+			
+		}
+		
+		
 	}
 }

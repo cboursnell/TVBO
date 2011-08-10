@@ -59,6 +59,11 @@ public class Model {
 	//
 	private String filename = "terran.xml";
 	//private String totalsText = "";
+	// MARQUEE SELECTION ////////////////////////
+	int mX1=0;
+	int mY1=0;
+	int mX2=0;
+	int mY2=0;
 
 	public Model() {
 		minerals=50;
@@ -142,7 +147,7 @@ public class Model {
 				techlab = (SCAddon)objects.get(i);
 				System.out.println("TechLab  - " + techlab.getAttachedTo());
 			}
-			
+
 		}*/
 		//System.out.println("Total Minerals Mined : " + totalMineralsMined);
 
@@ -780,7 +785,7 @@ public class Model {
 		}
 		return ready;
 	}
-	
+
 
 	public boolean hasAddon(String build, String tech) {
 		boolean foundBuilding=false;
@@ -793,14 +798,14 @@ public class Model {
 				building = (SCStructure)objects.get(i);
 				if(building.getAddonName().equals(tech)) {
 					foundBuilding=true;
-//					System.out.println(printTime() + "   <Model> Found building " + i);
+					//					System.out.println(printTime() + "   <Model> Found building " + i);
 				}
 			}
 			if(objects.get(i).getName().equals(tech)) {
 				addon = (SCAddon)objects.get(i);
 				if(addon.getAttachedTo().equals(build)) {
 					foundTech=true;
-//					System.out.println(printTime() + "   <Model> Found addon " + i);
+					//					System.out.println(printTime() + "   <Model> Found addon " + i);
 				}
 			}
 			i++;
@@ -810,11 +815,11 @@ public class Model {
 		} else {
 			return false;
 		}
-		
-		
-		
+
+
+
 	}
-	
+
 	public boolean isAvailable(String name) { // check to see if a building is complete
 		boolean ready = false;
 		SCStructure s;
@@ -887,6 +892,38 @@ public class Model {
 
 	}
 
+	public int getmX1() {
+		return mX1;
+	}
+
+	public void setmX1(int mX1) {
+		this.mX1 = mX1;
+	}
+
+	public int getmY1() {
+		return mY1;
+	}
+
+	public void setmY1(int mY1) {
+		this.mY1 = mY1;
+	}
+
+	public int getmX2() {
+		return mX2;
+	}
+
+	public void setmX2(int mX2) {
+		this.mX2 = mX2;
+	}
+
+	public int getmY2() {
+		return mY2;
+	}
+
+	public void setmY2(int mY2) {
+		this.mY2 = mY2;
+	}
+
 	public boolean buildAddon(String name, String building) {
 		int i = 0;
 		int b =-1;
@@ -908,18 +945,75 @@ public class Model {
 			SCAddon a = new SCAddon(this, name);
 			a.setAttachedTo(building);
 			objects.add(a);
-			System.out.println(printTime() + "   <Model> Adding " + a.getName() + " to list");
+			//System.out.println(printTime() + "   <Model> Adding " + a.getName() + " to list");
 		} 		
 		return found;
 	}
-	
+
+	public void startMarquee(int x, int y) {
+		mX1=x;
+		mY1=y;
+	}
+
+	public void updateMarquee(int x, int y) {
+		mX2=x;
+		mY2=y;
+	}
+
+	public void endMarquee(int x, int y) {
+		//System.out.println(mX1+" "+mY1+" - "+mX2+" "+mY2);
+		mX1 -= border;
+		mY1 -= border;
+		mY1 /= spacing;
+		mX1 /= scale;
+		mX1 += scroll;
+
+		mX2 -= border;
+		mY2 -= border;
+		mY2 /= spacing;
+		mX2 /= scale;
+		mX2 += scroll;
+
+		int ax;
+		int ay;
+		int aend;
+		//System.out.println(mX1+" "+mY1+" - "+mX2+" "+mY2);
+		if(mX2<mX1) {
+			int tmp = mX2;
+			mX2 = mX1;
+			mX1 = tmp;
+		} // make mY1 < mY2
+		if(mY2<mY1) {
+			int tmp = mY2;
+			mY2 = mY1;
+			mY1 = tmp;
+		} // make mY1 < mY2
+		if(mX1>=0 && mX2>=0 && mY1>=0 && mY2>=0) {
+			for(int i = 0; i < actions.size(); i++) {
+				ax=actions.get(i).getStartTime();
+				ay=actions.get(i).getY();
+				aend=ax+actions.get(i).getDuration();
+				if(ax>mX1 && aend<mX2 && ay>=mY1 && ay<=mY2) {
+					actions.get(i).select();
+				}
+			}
+		}
+
+		mX1=-1;
+		mY1=-1;
+		mX2=-1;
+		mY2=-1;
+
+	}
+
+
 	public void selectMultipleAction(int x, int y) {
 		x -= border;
 		y -= border;
 		y /= spacing;
 		x /= scale;
 		x += scroll;
-		
+
 		int a = 0;
 		int size = actions.size();
 		boolean f = false;
@@ -936,6 +1030,38 @@ public class Model {
 		}
 	}
 
+	public void selectAllActions(int x, int y) {
+		x -= border;
+		y -= border;
+		y /= spacing;
+		x /= scale;
+		x += scroll;
+		for(int i = 0; i < actions.size(); i++) {
+			actions.get(i).deselect();
+		}
+		int a = 0;
+		boolean f= false;
+		String name="";
+		while(!f && a < actions.size()) {
+			//for (int i = 0; i < actions.size(); i++) {
+			if (x >= actions.get(a).getStartTime()
+					&& x < actions.get(a).getStartTime() + actions.get(a).getDuration()
+					&& y >= actions.get(a).getY()
+					&& y < actions.get(a).getY() + 1) {
+				name = actions.get(a).getName();
+				actions.get(a).select();
+				f=true;
+				//System.out.println("Selecting action " + i);
+			}
+			a++;
+		}
+		for(int i = 0;i < actions.size(); i++) {
+			if(actions.get(i).getName().equals(name)) {
+				actions.get(i).select();
+			}
+		}
+	}
+
 	public void selectAction(int x, int y) {
 		int x2=x;
 		int y2=y;
@@ -945,7 +1071,7 @@ public class Model {
 		y /= spacing;
 		x /= scale;
 		x += scroll;
-		
+
 		x2 -= border;
 		x2 += (scale*scroll);
 
@@ -957,7 +1083,7 @@ public class Model {
 					int x3 = (int)(x2-(scale * (a.getStartTime()+a.getDuration())));
 					int y3 = y2 - (actions.get(i).getY() * spacing) - thickness;
 					y3 /= 14;
-//					System.out.println(x3 + " " + y3);
+					//					System.out.println(x3 + " " + y3);
 					if(x3>0 && x3<60 && y3 < actions.get(i).getOptionsSize()-1) {
 						actions.get(i).setOption(y3);
 					}
@@ -1067,7 +1193,7 @@ public class Model {
 									space=false;
 								} else {
 								}
-								
+
 							}
 						}
 					}

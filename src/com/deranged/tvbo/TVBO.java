@@ -34,6 +34,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class TVBO {
 
@@ -349,12 +350,31 @@ public class TVBO {
 			public void mouseClicked(MouseEvent e) {
 				if(e.isShiftDown()) {
 					model.selectMultipleAction(e.getX(), e.getY());
+				} else if(e.isControlDown()){
+					model.selectAllActions(e.getX(), e.getY());
 				} else {
 					model.selectAction(e.getX(), e.getY());
 				}
 				viewPanel.requestFocus();
 				viewPanel.repaint();
 				textArea.setText(model.setTotalsText());
+			}
+			public void mousePressed(MouseEvent e) {
+				//System.out.println("Mouse button goes down");
+				model.startMarquee(e.getX(), e.getY());
+			}
+			public void mouseReleased(MouseEvent e) {
+				//System.out.println("Mouse button goes up");
+				model.endMarquee(e.getX(), e.getY());
+				viewPanel.repaint();
+			}
+		});
+		viewPanel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				//System.out.println("Mouse is dragged " + e.getX() + " " + e.getY());
+				model.updateMarquee(e.getX(), e.getY());
+				viewPanel.repaint();
 			}
 		});
 
