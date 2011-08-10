@@ -28,15 +28,16 @@ public class Model {
 	private int lastTime = 0;
 	private int supply = 0;
 	private int food = 0;
-	
+
 	// GRAPHICS PARAMETERS //////////////////////
-	private int width=1400;
-	private int height=900;
+	private int width;//=1050;
+	private int height;//=900;
 	private double scale = 3.0;
 	private int scroll = 0;
 	private int border = 40;
 	private int spacing = 30; // distance between rows
-	
+	private int thickness = 15; // height of each bar
+
 	// HASH MAPS ////////////////////////////////
 	private HashMap<String, Integer> mineralCost;
 	private HashMap<String, Integer> gasCost;
@@ -46,7 +47,7 @@ public class Model {
 	private HashMap<String, Integer> supplies;
 	private HashMap<String, String> build;
 	private HashMap<String, String> tech;
-	
+
 	// ARRAYLISTS ///////////////////////////////
 	private ArrayList<Base> bases;
 	private ArrayList<SCObject> objects;
@@ -58,7 +59,7 @@ public class Model {
 	//
 	private String filename = "terran.xml";
 	//private String totalsText = "";
-	
+
 	public Model() {
 		minerals=50;
 		gas=0;
@@ -72,19 +73,22 @@ public class Model {
 		energyGraph = new int[maxTime];
 		setUpHashes();
 	}
-	
+
 	public void setup() {
 		Base b = new Base(this);
 		b.start();
 		bases.add(b);
 		//actions.add(new SCActionBuildSCV(this, 0, 1));
+		//		SCActionBuildAddon a = new SCActionBuildAddon(this, 200, 3, "TechLab");
+		//		a.setBuilding("Barracks");
+		//		actions.add(a);
 	}
-	
+
 	public void clear() {
 		reset();
 		actions.clear();
 	}
-	
+
 	public void play() {
 		totalMineralsMined=0;
 		totalGasMined=0;
@@ -113,7 +117,7 @@ public class Model {
 			for(int i = 0; i < bases.size(); i++) {
 				bases.get(i).update();
 			}
-			
+
 			for(int i = 0; i < objects.size(); i++) {
 				objects.get(i).update();
 			}
@@ -124,13 +128,26 @@ public class Model {
 				totalEnergy+= bases.get(b).getEnergy();
 			}
 			energyGraph[time] = totalEnergy;
-			
+
 			time++;
-		}
+		}/*
+		SCStructure barracks;
+		SCAddon techlab;
+		for(int i = 0 ; i < objects.size(); i++) {
+			if(objects.get(i).getName().equals("Barracks")) {
+				barracks = (SCStructure)objects.get(i);
+				System.out.println("Barracks - " + barracks.getAddonName());
+			}
+			if(objects.get(i).getName().equals("TechLab")) {
+				techlab = (SCAddon)objects.get(i);
+				System.out.println("TechLab  - " + techlab.getAttachedTo());
+			}
+			
+		}*/
 		//System.out.println("Total Minerals Mined : " + totalMineralsMined);
-		
+
 	}
-	
+
 	public void reset() {
 		bases.clear();
 		objects.clear();
@@ -162,7 +179,7 @@ public class Model {
 		prereqs = new HashMap<String, String>();
 		build = new HashMap<String, String>();
 		tech = new HashMap<String, String>();
-		
+
 		// MINERAL COST //////////////////////////////////////////////////
 		//    UNITS     //
 		mineralCost.put("SCV", 50);
@@ -186,7 +203,7 @@ public class Model {
 		mineralCost.put("Reactor", 50);
 		mineralCost.put("MissileTurret", 100);
 		mineralCost.put("SensorTower", 125);
-		
+
 		// GAS COST //////////////////////////////////////////////////////
 		// UNITS //
 		gasCost.put("SCV", 0);
@@ -205,11 +222,22 @@ public class Model {
 		gasCost.put("TechLab", 25);
 		gasCost.put("Reactor", 50);
 		gasCost.put("SensorTower", 100);
-		
+
 		// TIMES /////////////////////////////////////////////////////////
 		// UNITS //
 		times.put("SCV", 17);
 		times.put("Marine", 25);
+		times.put("Marauder", 30);
+		times.put("Reaper", 45);
+		times.put("Ghost", 40);
+		times.put("Hellion", 30);
+		times.put("SiegeTank", 45);
+		times.put("Thor", 60);
+		times.put("Viking", 42);
+		times.put("Medivac", 42);
+		times.put("Banshee", 60);
+		times.put("Raven", 60);
+		times.put("Battlecruiser", 90);
 		times.put("Mule", 90);
 		times.put("TransferToGas", 20);
 		// BUILDINGS //
@@ -231,7 +259,7 @@ public class Model {
 		times.put("Reactor", 50);
 		times.put("SensorTower", 25);
 		times.put("MissileTurret", 25);
-		
+
 		// FOOD //////////////////////////////////////////////////////////
 		foods.put("SCV", 1);
 		foods.put("Marine", 1);
@@ -270,7 +298,7 @@ public class Model {
 		tech.put("Raven", "TechLab");
 		tech.put("Battlecruiser", "TechLab");
 	}
-	
+
 	public void addUnitAction(String dropDown) {
 		int x=maxTime-1;
 		int y=1;
@@ -289,11 +317,11 @@ public class Model {
 			action = new SCActionBuildUnit(this, x, y, dropDown);
 			// TODO set to SCActionBuildUnit
 		}
-		
+
 		actions.add(action);
 		this.reset();
 		this.play();
-		
+
 		if(action.isComplete()) {
 			while(action.getStartTime()>0 && action.isComplete()) {
 				action.addStartTime(-1);
@@ -344,19 +372,19 @@ public class Model {
 				end2=action2.getStartTime()+action2.getDuration();
 				if(action2.getY() == y) {
 					if(x <= x2 && x2<end && end<=end2) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x2<x && x<end2 && end2<end) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x<x2 && end2<end) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x2<x && end<end2) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2);
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2);
 					}
 				}
 			}
@@ -365,9 +393,9 @@ public class Model {
 			}
 		}
 		action.setY(y);
-		
+
 	}
-	
+
 	public void addBuildingAction(String dropDown) {
 		int x=maxTime-1;
 		int y=1;
@@ -380,14 +408,18 @@ public class Model {
 			action = new SCActionCalldownSupply(this, x, y);
 		} else if(dropDown.equals("Refinery")) {
 			action = new SCActionBuildRefinery(this, x, y);
+		} else if(dropDown.equals("TechLab")) {
+			action = new SCActionBuildAddon(this, x, y, dropDown);
+		} else if(dropDown.equals("Reactor")) {
+			action = new SCActionBuildAddon(this, x, y, dropDown);
 		} else {
 			action = new SCActionBuilding(this, x, y, dropDown);
 		}
-		
+
 		actions.add(action);
 		this.reset();
 		this.play();
-		
+
 		if(action.isComplete()) {
 			while(action.getStartTime()>0 && action.isComplete()) {
 				action.addStartTime(-1);
@@ -418,16 +450,16 @@ public class Model {
 				end2=action2.getStartTime()+action2.getDuration();
 				if(action2.getY() == y) {
 					if(x < x2 && x2<end && end<end2) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x2<x && x<end2 && end2<end) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x<x2 && end2<end) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x2<x && end<end2) {
-//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else {
 					}
@@ -438,10 +470,10 @@ public class Model {
 			}
 		}
 		action.setY(y);
-		
+
 	}
-	
-	
+
+
 
 	public boolean save() {
 		String xml;
@@ -545,6 +577,8 @@ public class Model {
 			action = new SCActionCalldownSupply(this, startTime, y);
 		} else if(c.equals("SCActionUpgradeBase")) {
 			action = new SCActionUpgradeBase(this, startTime, y, name);
+		} else if(c.equals("SCActionBuildAddon")) {
+			action = new SCActionBuildAddon(this, startTime, y, name);
 		} else {
 			System.out.println("Unknown class type = " + c);
 		}
@@ -573,9 +607,9 @@ public class Model {
 		}
 		return r;
 	}
-	
+
 	public boolean buildSCV() {
-		
+
 		int selectedBase=-1;
 		int leastSCVs=200;
 		for(int i = 0; i < bases.size(); i++ ) {
@@ -596,7 +630,7 @@ public class Model {
 			return false;
 		}
 	}
-	
+
 	public boolean upgradeBase(String name) {
 		int base=-1;
 		int i =0;
@@ -616,7 +650,7 @@ public class Model {
 			return false;
 		}
 	}
-	
+
 	public boolean makeBuilding(String name) {
 		if(objects.add(new SCStructure(this, name))) {
 			spendMinerals(getMineralCost(name));
@@ -626,7 +660,7 @@ public class Model {
 			return false;
 		}
 	}
-	
+
 	public boolean buildRefinery() {
 		boolean f = false;
 		int b = 0;
@@ -651,7 +685,7 @@ public class Model {
 	}
 
 
-	
+
 	public boolean mule() {
 		int most=0;
 		int baseFrom=-1; // where to use the energy
@@ -683,7 +717,7 @@ public class Model {
 			return false;
 		}
 	}
-	
+
 	public boolean calldownSupply() {
 		int most=0;
 		int baseFrom=-1; // where to use the energy
@@ -713,10 +747,10 @@ public class Model {
 		} else {
 			return false;
 		}
-		
-		
+
+
 	}
-	
+
 	public boolean isFreeBase() {
 		boolean free = false;
 		for(int i = 0; i < bases.size(); i++) {
@@ -744,6 +778,19 @@ public class Model {
 		}
 		return ready;
 	}
+	public boolean isAvailable(String name) { // check to see if a building is complete
+		boolean ready = false;
+		SCStructure s;
+		for(int i = 0; i < objects.size(); i++) {
+			if(objects.get(i).isComplete() && objects.get(i).getName().equals(name)) {
+				s = (SCStructure)objects.get(i);
+				if(s.getProgress()==0 && s.getQueueLength()==0) {
+					ready = true;
+				}
+			}
+		}
+		return ready;
+	}
 
 	public boolean setSCVBuilding(int duration) {
 		int most=0;
@@ -764,7 +811,7 @@ public class Model {
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	public boolean addUnitToQueue(String name) {
@@ -792,14 +839,74 @@ public class Model {
 		}
 
 	}
-	
+
+	public boolean buildAddon(String name, String building) {
+		int i = 0;
+		int b =-1;
+		boolean found=false;
+		SCStructure s;
+		while(i < objects.size() && !found) {
+			if(objects.get(i) instanceof SCStructure) {
+				s = (SCStructure)objects.get(i);
+				if(s.getName().equals(building) && s.getQueueLength()==0 && s.getProgress()==0 && s.getAddonName().equals("")) {
+					b = i;
+					found=true;
+				}
+			}
+			i++;
+		}
+		if(found) {
+			s = (SCStructure)objects.get(b);
+			s.buildAddon(name);
+			SCAddon a = new SCAddon(this, name);
+			a.setAttachedTo(building);
+			objects.add(a);
+		} 		
+		return found;
+	}
+
 	public void selectAction(int x, int y) {
+		int x2=x;
+		int y2=y;
+
 		x -= border;
 		y -= border;
 		y /= spacing;
 		x /= scale;
 		x += scroll;
+		
+		x2 -= border;
+		x2 += (scale*scroll);
+
+		y2 -= border;
 		for(int i = 0; i < actions.size(); i++) {
+			if(actions.get(i).getPopup()==true) {
+				if(actions.get(i).getName().equals("TechLab") || actions.get(i).getName().equals("Reactor")) {
+					SCActionBuildAddon a = (SCActionBuildAddon)actions.get(i);
+					int x3 = (int)(x2-(scale * (a.getStartTime()+a.getDuration())));
+					int y3 = y2 - (actions.get(i).getY() * spacing) - thickness;
+					y3 /= 14;
+//					System.out.println(x3 + " " + y3);
+					if(x3>0 && x3<60 && y3 < actions.get(i).getOptionsSize()-1) {
+						actions.get(i).setOption(y3);
+					}
+				} // add else if for other actions here like SCActionLand
+			}
+		}
+		y2 -= (y*spacing);
+		y2 -= thickness;
+		for(int i = 0; i < actions.size(); i++) {
+			actions.get(i).setPopup(false);
+			if(actions.get(i).getName().equals("TechLab") || actions.get(i).getName().equals("Reactor")) {
+				SCActionBuildAddon a = (SCActionBuildAddon)actions.get(i);
+				if(a.isSelected()) {
+					int t = (int)((scale * (a.getStartTime()+a.getDuration()))-x2);
+					//System.out.println(x + " " + y + " " + t + " " + y2);
+					if(t>0 && t < 14 && y2 > 0 && y2 < 14) {
+						a.setPopup(true);
+					}
+				}
+			}
 			actions.get(i).deselect();
 		}
 		int a = 0;
@@ -816,8 +923,8 @@ public class Model {
 			}
 			a++;
 		}
-		//System.out.println(x + " " + y);
-		
+		//		System.out.println(x + " " + y + " " + x2 + " " + y2);
+
 	}
 	public void moveSelected(int x, int y) {
 		for (int i = 0; i < actions.size(); i++) {
@@ -827,7 +934,7 @@ public class Model {
 			}
 		}
 	}
-	
+
 	public String setTotalsText() {
 		String s="";
 		s +="Supply        : "+food+"/"+supply+"\n";
@@ -843,7 +950,7 @@ public class Model {
 		}
 		return g;
 	}
-	
+
 	public int freeRefineries() {
 		int r = 0;
 		for(int i = 0; i < bases.size(); i++) {
@@ -852,8 +959,8 @@ public class Model {
 		//System.out.println(printTime() + "   <Model> Free Refineries " + r);
 		return r;
 	}
-	
-	
+
+
 	public void addUnit(SCObject s) {
 		objects.add(s);
 	}
@@ -890,13 +997,13 @@ public class Model {
 				"SiegeTank", "Thor", "Viking", "Medivac", "Banshee", "Battlecruiser", "Raven"};
 		return s;
 	}
-	
+
 	public String[] getBuildingOptions() {
 		String[] s = {"SupplyDepot", "Refinery","Barracks", "OrbitalCommand","Factory", "Starport", "TechLab", "Reactor","CommandCenter", "CalldownSupply",
 				"Bunker","EngineeringBay","Armory",  "GhostAcademy", "Missile Turret","PlanetaryFortress","FusionCore", "SensorTower"};
 		return s;
 	}
-	
+
 	public String[] getResearchOptions() {
 		String[] s = {"StimPack", "CombatShield", "ConcussiveShells","NitroBoost","InfernalPreigniter","SiegeMode", "MobiusReactor"};
 		return s;
@@ -1062,6 +1169,9 @@ public class Model {
 	public int getSpacing() {
 		return spacing;
 	}
+	public int getThickness() {
+		return thickness;
+	}
 
 	public void setSpacing(int spacing) {
 		this.spacing = spacing;
@@ -1159,11 +1269,11 @@ public class Model {
 			if(bases.get(base).transferDroneToGas()) {
 				return true;
 			} else {
-//				System.out.println("<Model> couldn't transfer drones for some reason");
+				//				System.out.println("<Model> couldn't transfer drones for some reason");
 				return false;
 			}
 		} else {
-//			System.out.println("<Model> Couldn't find a base!");
+			//			System.out.println("<Model> Couldn't find a base!");
 			return false;
 		}
 	}

@@ -23,6 +23,15 @@ public class SCActionBuildUnit extends SCAction {
 		} else if(tech!=null && !model.isObjectComplete(tech)) {
 			f = false;
 			errorMsg = "TECHLAB";
+		} else if(model.getMinerals()<model.getMineralCost(name)) {
+			f = false;
+			errorMsg = "MINERALS";
+		} else if(!model.isAvailable(build)) {
+			f = false;
+			errorMsg = "QUEUE";
+		} else if(model.getGas() < model.getGasCost(name)) {
+			f = false;
+			errorMsg = "GAS";
 		} else if(!model.addUnitToQueue(name)) {
 			f = false;
 			errorMsg = "UNKNOWN";

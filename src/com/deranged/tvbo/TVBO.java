@@ -57,7 +57,7 @@ public class TVBO {
 	private JButton		    clearButton;
 	private JButton		    printButton;
 
-	private int frameWidth=1600;
+	private int frameWidth=1300;
 	private int frameHeight=1000;
 
 	public static void main(String[] args) {

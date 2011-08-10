@@ -38,17 +38,12 @@
   <Action Class="SCActionBuilding">
     <Name>Barracks</Name>
     <StartTime>95</StartTime>
-    <Y>2</Y>
+    <Y>3</Y>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>102</StartTime>
     <Y>1</Y>
-  </Action>
-  <Action Class="SCActionBuildRefinery">
-    <Name>Refinery</Name>
-    <StartTime>112</StartTime>
-    <Y>3</Y>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
@@ -64,5 +59,60 @@
     <Name>OrbitalCommand</Name>
     <StartTime>155</StartTime>
     <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>190</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>207</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>224</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuildSCV">
+    <Name>SCV</Name>
+    <StartTime>241</StartTime>
+    <Y>1</Y>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>SupplyDepot</Name>
+    <StartTime>211</StartTime>
+    <Y>2</Y>
+  </Action>
+  <Action Class="SCActionBuildRefinery">
+    <Name>Refinery</Name>
+    <StartTime>112</StartTime>
+    <Y>4</Y>
+  </Action>
+  <Action Class="SCActionTransferToGas">
+    <Name>TransferToGas</Name>
+    <StartTime>142</StartTime>
+    <Y>6</Y>
+  </Action>
+  <Action Class="SCActionTransferToGas">
+    <Name>TransferToGas</Name>
+    <StartTime>142</StartTime>
+    <Y>4</Y>
+  </Action>
+  <Action Class="SCActionTransferToGas">
+    <Name>TransferToGas</Name>
+    <StartTime>142</StartTime>
+    <Y>5</Y>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marine</Name>
+    <StartTime>155</StartTime>
+    <Y>3</Y>
+  </Action>
+  <Action Class="SCActionBuildAddon">
+    <Name>TechLab</Name>
+    <StartTime>180</StartTime>
+    <Y>3</Y>
   </Action>
 </Actions>

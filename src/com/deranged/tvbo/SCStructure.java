@@ -5,11 +5,15 @@ public class SCStructure extends SCObject {
 	protected int queue;
 	protected int supply = 0;
 	protected SCObject constructing;
+	private String addonName;
+	private boolean lifted;
 	
 	public SCStructure(Model model, String name) {
 		super(model, name);
 		queue=0;
 		supply = model.getSupply(name);
+		addonName="";
+		lifted=false;
 	}
 
 	public void update() {
@@ -43,9 +47,9 @@ public class SCStructure extends SCObject {
 				complete=true;
 				progress=0;
 				model.addSupply(supply);
-			}/*
-			System.out.println(model.printTime() + "   <SCStructure:update!complete> Progress = " + progress);
-			if(progress>=buildtime) {
+			}
+//			if(name.equals("TechLab")) System.out.println(model.printTime() + "   <SCStructure:update!complete> Progress = " + progress);
+			/*if(progress>=buildtime) {
 				model.addSupply(supply);
 				System.out.println(model.printTime() + "   <SCStructure> Adding "+supply+" to supply");
 			}*/
@@ -70,6 +74,16 @@ public class SCStructure extends SCObject {
 		}
 	}
 
+	public boolean buildAddon(String addonName) {
+		setBuildtime(model.getTime(addonName));
+		queue++;
+		model.spendMinerals(model.getMineralCost(addonName));
+		model.spendGas(model.getGasCost(addonName));
+		progress=0;
+		this.addonName = addonName;
+		return true;
+	}
+
 	public int getQueueLength() {
 		return queue;
 	}
@@ -80,5 +94,21 @@ public class SCStructure extends SCObject {
 
 	public void setSupply(int supply) {
 		this.supply = supply;
+	}
+
+	public String getAddonName() {
+		return addonName;
+	}
+
+	public void setAddonName(String addonName) {
+		this.addonName = addonName;
+	}
+
+	public boolean isLifted() {
+		return lifted;
+	}
+
+	public void setLifted(boolean lifted) {
+		this.lifted = lifted;
 	}
 }

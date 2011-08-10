@@ -14,7 +14,7 @@ public class View extends JPanel {
 	private double scale;
 	private int scroll;
 	private int spacing;
-	private int thickness=15;
+	private int thickness;
 	
 	private int width;
 	private int height;
@@ -44,6 +44,7 @@ public class View extends JPanel {
 		scale = model.getScale();
 		scroll = model.getScroll();
 		spacing = model.getSpacing();
+		thickness = model.getThickness();
 		
 		g.drawRect(border, border, width-2*border, height-2*border);
 		for(int i = 0; i < width;i+=30) { //model.getMaxTime()
@@ -104,10 +105,12 @@ public class View extends JPanel {
 		int actionY;
 		int t;
 		String aName;
+		boolean popup;
 		SCAction action;
 		int left;
 		int len;
 		int top;
+		int optionsSize=0;
 		for (int i = 0; i < s;i++) {
 			action = model.getAction(i);
 			actionY = action.getY();
@@ -116,13 +119,21 @@ public class View extends JPanel {
 			left = (int)(border+scale*(t-scroll));
 			len = (int)(scale*action.getDuration());
 			top = border+(spacing*actionY);
+			popup = action.getPopup();
 			if(action.isComplete()) {
 				if(action.isSelected()) {
 					g.setColor(new Color(150,220,150,150));
 					g.fillRect(left, top, len, thickness);
 					g.setColor(new Color(0,100,0,255));
 					g.drawRect(left, top, len, thickness);
+					if(aName.equals("TechLab") || aName.equals("Reactor")) {
+						g.setColor(new Color(150,220,150,150));
+						g.fillRect(left+len-13, top+thickness, 13, 13);
+						g.setColor(new Color(0,100,0,255));
+						g.drawRect(left+len-13, top+thickness, 13, 13);
+					}
 					g.setColor(new Color(75,75,75,255));
+
 					g.setFont(littleFont);
 					g.drawString(action.getSupplyPoint(), left+5, top+24);
 				} else {
@@ -134,12 +145,18 @@ public class View extends JPanel {
 					g.setFont(littleFont);
 					g.drawString(action.getSupplyPoint(), left+5, top+24);
 				}
-			} else {
+			} else { // not complete
 				if(action.isSelected()) {
 					g.setColor(new Color(220,150,150,150));
 					g.fillRect(left, top, len, thickness);
 					g.setColor(new Color(100,0,0,255));
 					g.drawRect(left, top, len, thickness);
+					if(aName.equals("TechLab") || aName.equals("Reactor")) {
+						g.setColor(new Color(220,150,150,150));
+						g.fillRect(left+len-13, top+thickness, 13, 13);
+						g.setColor(new Color(100,0,0,255));
+						g.drawRect(left+len-13, top+thickness, 13, 13);
+					}
 					g.setColor(new Color(255,0,0));
 					g.setFont(littleFont);
 					g.drawString(action.getErrorMsg(),left, top+24); // print error message
@@ -156,6 +173,19 @@ public class View extends JPanel {
 			}
 			g.setFont(font);
 			g.drawString(aName, left+3, top+12);
+			if(popup && action.isSelected()) {
+				optionsSize = action.getOptionsSize();
+				if(optionsSize>0) {
+					g.setColor(new Color(150,150,150,150));
+					g.fillRect(left+len, top+thickness, 60, optionsSize*14);
+					g.setColor(new Color(100,100,100,200));
+					g.drawRect(left+len, top+thickness, 60, optionsSize*14);
+					g.setColor(new Color(100,100,100,255));
+					for(int op = 0; op < optionsSize; op++) {
+						g.drawString(action.getOption(op), left+len+3, top+thickness+(op*14)+11);
+					}
+				}
+			}
 			
 		}
 		

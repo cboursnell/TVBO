@@ -1,5 +1,7 @@
 package com.deranged.tvbo;
 
+import java.util.ArrayList;
+
 public class SCAction {
 	
 	protected Model model;
@@ -17,6 +19,8 @@ public class SCAction {
 	//private final int DURATION;
 	private boolean selected;
 	protected String errorMsg;
+	private boolean popup;
+	protected ArrayList<String> options;
 	
 	public SCAction(Model model, int startTime, int y, int duration, String name) {
 		this.model = model;
@@ -31,6 +35,8 @@ public class SCAction {
 		selected=false;
 		preactionTime=0;
 		preactionComplete=false;
+		popup=false;
+		options = new ArrayList<String>();
 	}
 	
 	public void reset() {
@@ -139,6 +145,28 @@ public class SCAction {
 	}
 	public void setSupplyPoint(String supplyPoint) {
 		this.supplyPoint = supplyPoint;
+	}
+	public boolean getPopup() {
+		return popup;
+	}
+	public int getOptionsSize() {
+		return options.size();
+	}
+	public String getOption(int i) {
+		return options.get(i);
+	}
+	public void setOption(int i) {
+	}
+
+	public void togglePopup() {
+		if(popup) {
+			popup=false;
+		} else {
+			popup=true;
+		}
+	}
+	public void setPopup(boolean f) {
+		popup = f;
 	}
 	
 	public String toString() {
