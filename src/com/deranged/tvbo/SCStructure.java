@@ -1,10 +1,13 @@
 package com.deranged.tvbo;
 
 public class SCStructure extends SCObject {
-
+	// TODO Add support for reactor. Possibly remove progress and buildtime for making units and research
+	//        and use only the progress of 'constructing' and 'constructing2'
+	//      Add maxQueueLength which is 1 for normal and 2 for with reactor
 	protected int queue;
 	protected int supply = 0;
 	protected SCObject constructing;
+	protected SCObject constructing2; // for when you have a reactor ONLY
 	private String addonName;
 	private boolean lifted;
 	
@@ -38,6 +41,16 @@ public class SCStructure extends SCObject {
 				} else {
 					//System.out.println(model.printTime() + "   <SCStructure> Something wrong here");
 				}
+				if(addonName.equals("Reactor") && constructing2!=null) {
+					//System.out.println(model.printTime() + "   <SCStructure> Constructing " + constructing.getName() + " Progress = " + constructing.getProgress());
+					constructing2.update();
+					if(constructing2.isComplete() && !constructing2.getName().equals("SCV")) {
+						model.addUnit(constructing2);
+						constructing2=null;
+					}
+				} else {
+					//System.out.println(model.printTime() + "   <SCStructure> Something wrong here");
+				}
 			}
 		} else {
 			if(progress<buildtime) {
@@ -59,6 +72,9 @@ public class SCStructure extends SCObject {
 	public boolean addObjectToQueue(String name) {
 		buildtime=model.getTime(name);
 		//System.out.println(model.printTime() + "   <SCStructure> Adding " + name + " to queue");
+		//if(addonName.equals("Reactor") && complete) {
+			
+		//} else
 		if(queue==0 && complete) {
 			setBuildtime(buildtime);
 			constructing=new SCObject(model, name);

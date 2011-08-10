@@ -1,5 +1,12 @@
 package com.deranged.tvbo;
+//git@github.com:cboursnell/TVBO.git
 
+// TODO Add support for reactor. Possibly remove progress and buildtime for making units and research
+//        and use only the progress of 'constructing' and 'constructing2'
+//      Add maxQueueLength which is 1 for normal and 2 for with reactor
+//
+//      Add SCActionScout that takes 1 minute and uses up 1 SCV
+//      ADD SCActionScan that uses up 50 energy
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;

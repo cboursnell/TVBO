@@ -20,6 +20,7 @@ public class SCAction {
 	private boolean selected;
 	protected String errorMsg;
 	private boolean popup;
+	protected String building;
 	protected ArrayList<String> options;
 	
 	public SCAction(Model model, int startTime, int y, int duration, String name) {
@@ -156,6 +157,14 @@ public class SCAction {
 		return options.get(i);
 	}
 	public void setOption(int i) {
+	}
+
+	public String getBuilding() {
+		return building;
+	}
+
+	public void setBuilding(String building) {
+		this.building = building;
 	}
 
 	public void togglePopup() {

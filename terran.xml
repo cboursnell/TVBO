@@ -4,115 +4,234 @@
     <Name>SCV</Name>
     <StartTime>0</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>17</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>34</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>51</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuilding">
     <Name>SupplyDepot</Name>
     <StartTime>55</StartTime>
     <Y>2</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>68</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>85</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuilding">
     <Name>Barracks</Name>
     <StartTime>95</StartTime>
-    <Y>3</Y>
+    <Y>2</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>102</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildRefinery">
+    <Name>Refinery</Name>
+    <StartTime>112</StartTime>
+    <Y>3</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>120</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildSCV">
     <Name>SCV</Name>
     <StartTime>137</StartTime>
     <Y>1</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionUpgradeBase">
     <Name>OrbitalCommand</Name>
     <StartTime>155</StartTime>
     <Y>1</Y>
-  </Action>
-  <Action Class="SCActionBuildSCV">
-    <Name>SCV</Name>
-    <StartTime>190</StartTime>
-    <Y>1</Y>
-  </Action>
-  <Action Class="SCActionBuildSCV">
-    <Name>SCV</Name>
-    <StartTime>207</StartTime>
-    <Y>1</Y>
-  </Action>
-  <Action Class="SCActionBuildSCV">
-    <Name>SCV</Name>
-    <StartTime>224</StartTime>
-    <Y>1</Y>
-  </Action>
-  <Action Class="SCActionBuildSCV">
-    <Name>SCV</Name>
-    <StartTime>241</StartTime>
-    <Y>1</Y>
-  </Action>
-  <Action Class="SCActionBuilding">
-    <Name>SupplyDepot</Name>
-    <StartTime>211</StartTime>
-    <Y>2</Y>
-  </Action>
-  <Action Class="SCActionBuildRefinery">
-    <Name>Refinery</Name>
-    <StartTime>112</StartTime>
-    <Y>4</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionTransferToGas">
     <Name>TransferToGas</Name>
     <StartTime>142</StartTime>
-    <Y>6</Y>
+    <Y>3</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionTransferToGas">
     <Name>TransferToGas</Name>
     <StartTime>142</StartTime>
     <Y>4</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionTransferToGas">
     <Name>TransferToGas</Name>
     <StartTime>142</StartTime>
     <Y>5</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildUnit">
     <Name>Marine</Name>
     <StartTime>155</StartTime>
-    <Y>3</Y>
+    <Y>2</Y>
+    <Option>null</Option>
   </Action>
   <Action Class="SCActionBuildAddon">
     <Name>TechLab</Name>
     <StartTime>180</StartTime>
+    <Y>2</Y>
+    <Option>Barracks</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>205</StartTime>
+    <Y>2</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionMule">
+    <Name>Mule</Name>
+    <StartTime>190</StartTime>
+    <Y>1</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>Barracks</Name>
+    <StartTime>170</StartTime>
     <Y>3</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>Barracks</Name>
+    <StartTime>194</StartTime>
+    <Y>4</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildAddon">
+    <Name>TechLab</Name>
+    <StartTime>230</StartTime>
+    <Y>3</Y>
+    <Option>Barracks</Option>
+  </Action>
+  <Action Class="SCActionBuildAddon">
+    <Name>Reactor</Name>
+    <StartTime>254</StartTime>
+    <Y>4</Y>
+    <Option>Barracks</Option>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>SupplyDepot</Name>
+    <StartTime>211</StartTime>
+    <Y>6</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>235</StartTime>
+    <Y>2</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>255</StartTime>
+    <Y>3</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>265</StartTime>
+    <Y>2</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>285</StartTime>
+    <Y>3</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>SupplyDepot</Name>
+    <StartTime>242</StartTime>
+    <Y>6</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marine</Name>
+    <StartTime>304</StartTime>
+    <Y>4</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>295</StartTime>
+    <Y>2</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marine</Name>
+    <StartTime>304</StartTime>
+    <Y>5</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionMule">
+    <Name>Mule</Name>
+    <StartTime>279</StartTime>
+    <Y>1</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>315</StartTime>
+    <Y>3</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>325</StartTime>
+    <Y>2</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>345</StartTime>
+    <Y>3</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuildUnit">
+    <Name>Marauder</Name>
+    <StartTime>355</StartTime>
+    <Y>2</Y>
+    <Option>null</Option>
+  </Action>
+  <Action Class="SCActionBuilding">
+    <Name>SupplyDepot</Name>
+    <StartTime>273</StartTime>
+    <Y>6</Y>
+    <Option>null</Option>
   </Action>
 </Actions>

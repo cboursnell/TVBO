@@ -20,7 +20,7 @@ public class SCActionBuildUnit extends SCAction {
 		} else if(prereq!=null && !model.isObjectComplete(build)) {
 			f = false;
 			errorMsg = "BUILD";
-		} else if(tech!=null && !model.isObjectComplete(tech)) {
+		} else if(tech!=null && !model.hasAddon(build, tech)) {
 			f = false;
 			errorMsg = "TECHLAB";
 		} else if(model.getMinerals()<model.getMineralCost(name)) {

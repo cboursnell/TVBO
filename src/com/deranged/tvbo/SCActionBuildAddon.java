@@ -2,11 +2,17 @@ package com.deranged.tvbo;
 
 public class SCActionBuildAddon extends SCAction {
 
-	private String building;
 	
 	public SCActionBuildAddon(Model model, int startTime, int y, String name) {
 		super(model, startTime, y, model.getTime(name), name);
 		building="";
+		options.add("Barracks");
+		options.add("Factory");
+		options.add("Starport");
+	}
+	public SCActionBuildAddon(Model model, int startTime, int y, String name, String building) {
+		super(model, startTime, y, model.getTime(name), name);
+		setBuilding(building);
 		options.add("Barracks");
 		options.add("Factory");
 		options.add("Starport");
@@ -39,17 +45,9 @@ public class SCActionBuildAddon extends SCAction {
 		return f;
 		
 	}
-
-	public String getBuilding() {
-		return building;
-	}
-
-	public void setBuilding(String building) {
-		this.building = building;
-	}
 	public void setOption(int i) {
 		building = options.get(i);
-		System.out.println("<SCActionBuildAddon> Building set to " + building);
+		//System.out.println("<SCActionBuildAddon> Building set to " + building);
 		model.reset();
 		model.play();
 	}

@@ -492,6 +492,7 @@ public class Model {
 			xml+="    <StartTime>"+action.getStartTime()+"</StartTime>\n";
 			xml+="    <Y>"+action.getY()+"</Y>\n";
 			//xml+="    <Duration>"+action.getDuration()+"</Duration>\n";
+			xml+="    <Option>"+action.getBuilding()+"</Option>\n";
 			xml+="  </Action>\n";
 		}
 		xml+="</Actions>\n";
@@ -558,6 +559,7 @@ public class Model {
 		int y = getIntValue(element,"Y");
 		//int duration = getIntValue(element, "Duration");
 		String name = getTextValue(element, "Name");
+		String building = getTextValue(element, "Option");
 		SCAction action=null;
 		if(c.equals("SCActionBuilding")) {
 			action = new SCActionBuilding(this, startTime, y, name);
@@ -578,7 +580,7 @@ public class Model {
 		} else if(c.equals("SCActionUpgradeBase")) {
 			action = new SCActionUpgradeBase(this, startTime, y, name);
 		} else if(c.equals("SCActionBuildAddon")) {
-			action = new SCActionBuildAddon(this, startTime, y, name);
+			action = new SCActionBuildAddon(this, startTime, y, name, building);
 		} else {
 			System.out.println("Unknown class type = " + c);
 		}
@@ -778,6 +780,41 @@ public class Model {
 		}
 		return ready;
 	}
+	
+
+	public boolean hasAddon(String build, String tech) {
+		boolean foundBuilding=false;
+		boolean foundTech=false;
+		SCStructure building;
+		SCAddon addon;
+		int i = 0;
+		while((!foundTech || !foundBuilding) && i < objects.size()) {
+			if(objects.get(i).getName().equals(build)) {
+				building = (SCStructure)objects.get(i);
+				if(building.getAddonName().equals(tech)) {
+					foundBuilding=true;
+//					System.out.println(printTime() + "   <Model> Found building " + i);
+				}
+			}
+			if(objects.get(i).getName().equals(tech)) {
+				addon = (SCAddon)objects.get(i);
+				if(addon.getAttachedTo().equals(build)) {
+					foundTech=true;
+//					System.out.println(printTime() + "   <Model> Found addon " + i);
+				}
+			}
+			i++;
+		}
+		if(foundBuilding && foundTech) {
+			return true;
+		} else {
+			return false;
+		}
+		
+		
+		
+	}
+	
 	public boolean isAvailable(String name) { // check to see if a building is complete
 		boolean ready = false;
 		SCStructure s;
@@ -816,14 +853,24 @@ public class Model {
 
 	public boolean addUnitToQueue(String name) {
 		String build = getBuild(name);
+		String tech = getTech(name);
 		int i = 0;
 		int building=-1;
 		boolean found = false;
 		while(!found && i < objects.size()) {
 			if(objects.get(i).getName().equals(build) && objects.get(i).isComplete() && objects.get(i).getProgress()==0) {
-				if(((SCStructure)objects.get(i)).getQueueLength()==0) {
-					found=true;
-					building=i;
+				SCStructure s = (SCStructure)objects.get(i);
+				//if(s.getQueueLength()<s.getMaxQueue()) {
+				if(s.getQueueLength()==0) {
+					if(tech!=null) {
+						if(s.getAddonName().equals(tech)) {
+							found=true;
+							building=i;
+						}
+					} else {
+						found=true;
+						building=i;
+					}
 				}
 			}
 			i++;
@@ -861,6 +908,7 @@ public class Model {
 			SCAddon a = new SCAddon(this, name);
 			a.setAttachedTo(building);
 			objects.add(a);
+			System.out.println(printTime() + "   <Model> Adding " + a.getName() + " to list");
 		} 		
 		return found;
 	}
@@ -1277,6 +1325,7 @@ public class Model {
 			return false;
 		}
 	}
+
 
 
 }
