@@ -14,6 +14,7 @@ public class SCAddon extends SCStructure {
 
 	public void setAttachedTo(String attachedTo) {
 		this.attachedTo = attachedTo;
+		//System.out.println("Attached to " + attachedTo);
 	}
 
 	

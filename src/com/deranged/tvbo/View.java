@@ -173,10 +173,19 @@ public class View extends JPanel {
 			}
 			g.setFont(font);
 			g.drawString(aName, left+3, top+12);
+		}
+
+		for (int i = 0; i < s;i++) {
+			action = model.getAction(i);
+			popup = action.getPopup();
+			aName = action.toString();
+			left = (int)(border+scale*(action.getStartTime()-scroll));
+			len = (int)(scale*action.getDuration());
+			top = border+(spacing*action.getY());
 			if(popup && action.isSelected()) {
 				optionsSize = action.getOptionsSize();
 				if(optionsSize>0) {
-					g.setColor(new Color(150,150,150,150));
+					g.setColor(new Color(200,200,200,200));
 					g.fillRect(left+len, top+thickness, 60, optionsSize*14);
 					g.setColor(new Color(100,100,100,200));
 					g.drawRect(left+len, top+thickness, 60, optionsSize*14);

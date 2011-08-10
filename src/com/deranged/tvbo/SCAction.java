@@ -55,7 +55,7 @@ public class SCAction {
 	}
 	public void moveY(int dy) {
 		y+=dy;
-		if(y<1 || y > 15) {
+		if(y<1 || y > (model.getHeight()/model.getSpacing())) {
 			y-=dy;
 		}
 	}

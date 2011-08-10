@@ -342,7 +342,7 @@ public class TVBO {
 			public void componentResized(ComponentEvent e) {
 				model.setWidth(viewPanel.getWidth());
 				model.setHeight(viewPanel.getHeight());
-				System.out.println(model.getWidth() +" x "+model.getHeight());
+				//System.out.println(model.getWidth() +" x "+model.getHeight());
 			}
 		});
 		
@@ -361,10 +361,12 @@ public class TVBO {
 			}
 			public void mousePressed(MouseEvent e) {
 				//System.out.println("Mouse button goes down");
+				viewPanel.requestFocus();
 				model.startMarquee(e.getX(), e.getY());
 			}
 			public void mouseReleased(MouseEvent e) {
 				//System.out.println("Mouse button goes up");
+				viewPanel.requestFocus();
 				model.endMarquee(e.getX(), e.getY());
 				viewPanel.repaint();
 			}
@@ -373,6 +375,7 @@ public class TVBO {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				//System.out.println("Mouse is dragged " + e.getX() + " " + e.getY());
+				viewPanel.requestFocus();
 				model.updateMarquee(e.getX(), e.getY());
 				viewPanel.repaint();
 			}

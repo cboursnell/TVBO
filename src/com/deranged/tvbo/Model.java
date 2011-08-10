@@ -20,7 +20,7 @@ public class Model {
 
 	// TIMINGS //////////////////////////////////
 	private int time = 0;
-	private int maxTime = 6*60;
+	private int maxTime = 10*60;
 	private int minerals;
 	private int totalMineralsMined;
 	private int totalGasMined;
@@ -135,7 +135,9 @@ public class Model {
 			energyGraph[time] = totalEnergy;
 
 			time++;
-		}/*
+		}
+		//maxTime=lastTime+180;
+		/*
 		SCStructure barracks;
 		SCAddon techlab;
 		for(int i = 0 ; i < objects.size(); i++) {
@@ -164,11 +166,15 @@ public class Model {
 		gas = 0;
 		food = 0;
 		supply = 0;
+		/*
 		for(int i = 0; i < maxTime; i++) {
 			mineralGraph[i] = 0;
 			gasGraph[i] = 0;
 			energyGraph[i] = 0;
-		}
+		}*/
+//		mineralGraph = new int[maxTime];
+//		gasGraph = new int[maxTime];
+//		energyGraph = new int[maxTime];
 		Base b = new Base(this);
 		b.start();
 		bases.add(b);
@@ -190,6 +196,16 @@ public class Model {
 		mineralCost.put("SCV", 50);
 		mineralCost.put("Marine", 50);
 		mineralCost.put("Marauder", 100);
+		mineralCost.put("Reaper", 50);
+		mineralCost.put("Ghost", 200);
+		mineralCost.put("Hellion", 100);
+		mineralCost.put("SiegeTank", 150);
+		mineralCost.put("Thor", 300);
+		mineralCost.put("Viking", 150);
+		mineralCost.put("Medivac", 100);
+		mineralCost.put("Banshee", 150);
+		mineralCost.put("Raven", 100);
+		mineralCost.put("Battlecruiser", 400);
 		// BUILDINGS /////
 		mineralCost.put("SupplyDepot", 100);
 		mineralCost.put("CommandCenter", 400);
@@ -214,6 +230,16 @@ public class Model {
 		gasCost.put("SCV", 0);
 		gasCost.put("Marine", 0);
 		gasCost.put("Marauder", 25);
+		gasCost.put("Reaper", 50);
+		gasCost.put("Ghost", 100);
+		gasCost.put("Hellion", 0);
+		gasCost.put("SiegeTank", 125);
+		gasCost.put("Thor", 200);
+		gasCost.put("Viking", 75);
+		gasCost.put("Medivac", 100);
+		gasCost.put("Banshee", 100);
+		gasCost.put("Raven", 200);
+		gasCost.put("Battlecruiser", 300);
 		// BUILDINGS //
 		gasCost.put("SupplyDepot", 0);
 		gasCost.put("Barracks", 0);
@@ -269,10 +295,26 @@ public class Model {
 		foods.put("SCV", 1);
 		foods.put("Marine", 1);
 		foods.put("Marauder", 2);
+		foods.put("Reaper", 1);
+		foods.put("Ghost", 2);
+		foods.put("Hellion", 2);
+		foods.put("SiegeTank", 3);
+		foods.put("Thor", 6);
+		foods.put("Viking", 2);
+		foods.put("Medivac", 2);
+		foods.put("Banshee", 3);
+		foods.put("Raven", 2);
+		foods.put("Battlecruiser", 6);
 		// SUPPLY ////////////////////////////////////////////////////////
 		supplies.put("SupplyDepot", 8);
 		// PREREQ ////////////////////////////////////////////////////////
 		prereqs.put("Barracks", "SupplyDepot");
+		prereqs.put("Factory", "Barracks");
+		prereqs.put("Bunker", "Barracks");
+		prereqs.put("GhostAcademy", "Barracks");
+		prereqs.put("Starport", "Factory");
+		prereqs.put("FusionCore", "Starport");
+		prereqs.put("Armory", "Factory");
 		prereqs.put("OrbitalCommand", "Barracks");
 		prereqs.put("Bunker", "Barracks");
 		prereqs.put("Ghost", "GhostAcademy");
@@ -280,6 +322,7 @@ public class Model {
 		prereqs.put("Battlecruiser", "FusionCore");
 		prereqs.put("MissileTurret", "EngineeringBay");
 		prereqs.put("PlanetaryFortress", "EngineeringBay");
+		prereqs.put("SensorTower", "EngineeringBay");
 		// BUILD /////////////////////////////////////////////////////////
 		build.put("Marine", "Barracks");
 		build.put("Marauder", "Barracks");
@@ -379,7 +422,7 @@ public class Model {
 					if(x <= x2 && x2<end && end<=end2) {
 						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
-					} else if(x2<x && x<end2 && end2<end) {
+					} else if(x2<x && x<end2 && end2<=end) {
 						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x<x2 && end2<end) {
@@ -822,14 +865,12 @@ public class Model {
 
 	public boolean isAvailable(String name) { // check to see if a building is complete
 		boolean ready = false;
-		SCStructure s;
-		for(int i = 0; i < objects.size(); i++) {
-			if(objects.get(i).isComplete() && objects.get(i).getName().equals(name)) {
-				s = (SCStructure)objects.get(i);
-				if(s.getProgress()==0 && s.getQueueLength()==0) {
-					ready = true;
-				}
+		int i = 0;
+		while(i < objects.size() && !ready) {
+			if(objects.get(i).isComplete() && objects.get(i).getName().equals(name) && objects.get(i).isAvailable()) {
+				ready=true;
 			}
+			i++;
 		}
 		return ready;
 	}
@@ -863,7 +904,7 @@ public class Model {
 		int building=-1;
 		boolean found = false;
 		while(!found && i < objects.size()) {
-			if(objects.get(i).getName().equals(build) && objects.get(i).isComplete() && objects.get(i).getProgress()==0) {
+			if(objects.get(i).getName().equals(build) && objects.get(i).isComplete() && objects.get(i).isAvailable()) {
 				SCStructure s = (SCStructure)objects.get(i);
 				//if(s.getQueueLength()<s.getMaxQueue()) {
 				if(s.getQueueLength()==0) {
@@ -932,7 +973,7 @@ public class Model {
 		while(i < objects.size() && !found) {
 			if(objects.get(i) instanceof SCStructure) {
 				s = (SCStructure)objects.get(i);
-				if(s.getName().equals(building) && s.getQueueLength()==0 && s.getProgress()==0 && s.getAddonName().equals("")) {
+				if(s.getName().equals(building) && s.getQueueLength()==0 && s.isAvailable() && s.getAddonName().equals("")) {
 					b = i;
 					found=true;
 				}
@@ -1083,8 +1124,8 @@ public class Model {
 					int x3 = (int)(x2-(scale * (a.getStartTime()+a.getDuration())));
 					int y3 = y2 - (actions.get(i).getY() * spacing) - thickness;
 					y3 /= 14;
-					//					System.out.println(x3 + " " + y3);
-					if(x3>0 && x3<60 && y3 < actions.get(i).getOptionsSize()-1) {
+					//System.out.println(x3 + " " + y3);
+					if(x3>0 && x3<60 && y3 < actions.get(i).getOptionsSize()) {
 						actions.get(i).setOption(y3);
 					}
 				} // add else if for other actions here like SCActionLand
@@ -1235,6 +1276,7 @@ public class Model {
 
 
 	public void addUnit(SCObject s) {
+		//System.out.println(printTime() + "   <Model>Adding unit " + s.getName());
 		objects.add(s);
 	}
 

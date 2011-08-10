@@ -32,6 +32,9 @@ public class SCActionBuildUnit extends SCAction {
 		} else if(model.getGas() < model.getGasCost(name)) {
 			f = false;
 			errorMsg = "GAS";
+		} else if(model.getFood(name)>0 && model.getFood()+model.getFood(name)>model.getSupply()) {
+			f = false;
+			errorMsg = "SUPPLY BLOCKED";
 		} else if(!model.addUnitToQueue(name)) {
 			f = false;
 			errorMsg = "UNKNOWN";

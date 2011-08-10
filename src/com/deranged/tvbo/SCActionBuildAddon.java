@@ -32,6 +32,9 @@ public class SCActionBuildAddon extends SCAction {
 		} else if(model.getGas() < model.getGasCost(name)) {
 			f = false;
 			errorMsg = "GAS";
+		} else if(!model.isObjectComplete(building)) {
+			f = false;
+			errorMsg = "QUEUE";
 		} else if(!model.isAvailable(building)) {
 			f = false;
 			errorMsg = "QUEUE";
@@ -47,7 +50,7 @@ public class SCActionBuildAddon extends SCAction {
 	}
 	public void setOption(int i) {
 		building = options.get(i);
-		//System.out.println("<SCActionBuildAddon> Building set to " + building);
+		System.out.println("<SCActionBuildAddon> Building set to " + building);
 		model.reset();
 		model.play();
 	}

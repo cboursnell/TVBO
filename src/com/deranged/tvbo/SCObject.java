@@ -48,6 +48,13 @@ public class SCObject {
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
+	public boolean isAvailable() {
+		if(complete) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public int getBuildtime() {
 		return buildtime;

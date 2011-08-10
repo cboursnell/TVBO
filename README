@@ -8,6 +8,10 @@ Intro goes here. Stuff about the project.
 
 -- Controls --
 
+Select actions by clicking on them or dragging a box around them.
+Hold down shift to select add to a selection, and hold down control
+to select all actions of that type.
+
 W - Move action up a row
 S - Move action down a row
 A - Move action left 1 second
