@@ -75,4 +75,42 @@ public class SCObject {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public boolean lift() {
+		if(name.equals("Barracks") ||name.equals("Factory") ||name.equals("Starport")) {
+			return true;
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot lift " + name);
+			return false;
+		}
+		
+	}
+	public boolean land(String addon) {
+		if(name.equals("Barracks") ||name.equals("Factory") ||name.equals("Starport")) {
+			return true;
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot land " + name);
+			return false;
+		}
+		
+	}
+
+	public boolean detach() {
+		if(name.equals("TechLab") || name.equals("Reactor")) {
+			return true;
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot detach " + name);
+			return false;
+		}
+		
+	}
+	public boolean attach(String building) {
+		if(name.equals("TechLab") || name.equals("Reactor")) {
+			return true;
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot detach " + name);
+			return false;
+		}
+		
+	}
 }

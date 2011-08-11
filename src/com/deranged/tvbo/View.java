@@ -126,7 +126,7 @@ public class View extends JPanel {
 					g.fillRect(left, top, len, thickness);
 					g.setColor(new Color(0,100,0,255));
 					g.drawRect(left, top, len, thickness);
-					if(aName.equals("TechLab") || aName.equals("Reactor")) {
+					if(action.getOptionsSize()>0) {
 						g.setColor(new Color(150,220,150,150));
 						g.fillRect(left+len-13, top+thickness, 13, 13);
 						g.setColor(new Color(0,100,0,255));
@@ -151,7 +151,7 @@ public class View extends JPanel {
 					g.fillRect(left, top, len, thickness);
 					g.setColor(new Color(100,0,0,255));
 					g.drawRect(left, top, len, thickness);
-					if(aName.equals("TechLab") || aName.equals("Reactor")) {
+					if(action.getOptionsSize()>0) {
 						g.setColor(new Color(220,150,150,150));
 						g.fillRect(left+len-13, top+thickness, 13, 13);
 						g.setColor(new Color(100,0,0,255));

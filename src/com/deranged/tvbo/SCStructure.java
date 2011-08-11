@@ -104,17 +104,17 @@ public class SCStructure extends SCObject {
 	}
 
 	public boolean isAvailable() {
-		if(addonName.equals("Reactor")) {
-			if(constructing!=null  && constructing2!=null) {
+		if(!lifted && addonName.equals("Reactor")) {
+			if(progress>0 && constructing!=null  && constructing2!=null) {
 				return false;
 			} else {
 				return true;
 			}
 		} else {
-			if(constructing==null) {
+			if(progress==0 && !lifted && constructing==null) {
 				return true;
 			} else {
-				System.out.println(model.printTime() + "   <SCStructure:isAvailable> constructing is not null");
+				//System.out.println(model.printTime() + "   <SCStructure:isAvailable> constructing is not null");
 				return false;
 			}
 		}
@@ -159,5 +159,65 @@ public class SCStructure extends SCObject {
 
 	public void setLifted(boolean lifted) {
 		this.lifted = lifted;
+	}
+	public boolean lift() {
+		if(name.equals("Barracks") ||name.equals("Factory") ||name.equals("Starport")) {
+			if(lifted) {
+				return false;
+			} else {
+				lifted=true;
+				progress=0;
+				buildtime=3;
+				queue++;
+				addonName="";
+				return true;
+			}
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot lift " + name);
+			return false;
+		}
+		
+	}
+	public boolean land(String addon) {
+		if(name.equals("Barracks") ||name.equals("Factory") ||name.equals("Starport")) {
+			if(!lifted) {
+				return false;
+			} else {
+				lifted=false;
+				progress=0;
+				buildtime=3;
+				queue++;
+				if(addon.equals("none")) {
+					addonName="";
+				} else {
+					addonName=addon;
+				}
+				return true;
+			}
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot land " + name);
+			return false;
+		}
+		
+	}
+
+
+	public boolean detach() {
+		if(name.equals("TechLab") || name.equals("Reactor")) {
+			return true;
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot detach " + name);
+			return false;
+		}
+		
+	}
+	public boolean attach(String building) {
+		if(name.equals("TechLab") || name.equals("Reactor")) {
+			return true;
+		} else {
+			System.out.println(model.printTime() + "   <SCObject> Cannot detach " + name);
+			return false;
+		}
+		
 	}
 }

@@ -5,14 +5,14 @@ public class SCActionBuildAddon extends SCAction {
 	
 	public SCActionBuildAddon(Model model, int startTime, int y, String name) {
 		super(model, startTime, y, model.getTime(name), name);
-		building="";
+		option="";
 		options.add("Barracks");
 		options.add("Factory");
 		options.add("Starport");
 	}
-	public SCActionBuildAddon(Model model, int startTime, int y, String name, String building) {
+	public SCActionBuildAddon(Model model, int startTime, int y, String name, String option) {
 		super(model, startTime, y, model.getTime(name), name);
-		setBuilding(building);
+		setOption(option);
 		options.add("Barracks");
 		options.add("Factory");
 		options.add("Starport");
@@ -23,7 +23,7 @@ public class SCActionBuildAddon extends SCAction {
 		
 		if(complete) {
 			f = false;
-		} else if(building.equals("")) {
+		} else if(option.equals("")) {
 			f = false;
 			errorMsg = "SET OPTION";
 		} else if(model.getMinerals()<model.getMineralCost(name)) {
@@ -32,13 +32,13 @@ public class SCActionBuildAddon extends SCAction {
 		} else if(model.getGas() < model.getGasCost(name)) {
 			f = false;
 			errorMsg = "GAS";
-		} else if(!model.isObjectComplete(building)) {
+		} else if(!model.isObjectComplete(option)) {
 			f = false;
 			errorMsg = "QUEUE";
-		} else if(!model.isAvailable(building)) {
+		} else if(!model.isAvailable(option)) {
 			f = false;
 			errorMsg = "QUEUE";
-		} else if(!model.buildAddon(name, building)) {
+		} else if(!model.buildAddon(name, option)) {
 			f = false;
 			errorMsg = "UNKNOWN";
 		}
@@ -49,8 +49,8 @@ public class SCActionBuildAddon extends SCAction {
 		
 	}
 	public void setOption(int i) {
-		building = options.get(i);
-		System.out.println("<SCActionBuildAddon> Building set to " + building);
+		option = options.get(i);
+		System.out.println("<SCActionBuildAddon> Building set to " + option);
 		model.reset();
 		model.play();
 	}

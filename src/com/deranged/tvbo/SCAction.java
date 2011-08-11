@@ -20,7 +20,7 @@ public class SCAction {
 	private boolean selected;
 	protected String errorMsg;
 	private boolean popup;
-	protected String building;
+	protected String option; // used in scactionbuildaddon
 	protected ArrayList<String> options;
 	
 	public SCAction(Model model, int startTime, int y, int duration, String name) {
@@ -159,12 +159,12 @@ public class SCAction {
 	public void setOption(int i) {
 	}
 
-	public String getBuilding() {
-		return building;
+	public String getOption() {
+		return option;
 	}
 
-	public void setBuilding(String building) {
-		this.building = building;
+	public void setOption(String option) {
+		this.option = option;
 	}
 
 	public void togglePopup() {

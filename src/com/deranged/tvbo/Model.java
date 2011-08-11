@@ -172,9 +172,9 @@ public class Model {
 			gasGraph[i] = 0;
 			energyGraph[i] = 0;
 		}*/
-//		mineralGraph = new int[maxTime];
-//		gasGraph = new int[maxTime];
-//		energyGraph = new int[maxTime];
+		//		mineralGraph = new int[maxTime];
+		//		gasGraph = new int[maxTime];
+		//		energyGraph = new int[maxTime];
 		Base b = new Base(this);
 		b.start();
 		bases.add(b);
@@ -290,6 +290,7 @@ public class Model {
 		times.put("Reactor", 50);
 		times.put("SensorTower", 25);
 		times.put("MissileTurret", 25);
+		times.put("Lift", 25);
 
 		// FOOD //////////////////////////////////////////////////////////
 		foods.put("SCV", 1);
@@ -323,6 +324,8 @@ public class Model {
 		prereqs.put("MissileTurret", "EngineeringBay");
 		prereqs.put("PlanetaryFortress", "EngineeringBay");
 		prereqs.put("SensorTower", "EngineeringBay");
+		// research
+		prereqs.put("NitroPack", "Factory");
 		// BUILD /////////////////////////////////////////////////////////
 		build.put("Marine", "Barracks");
 		build.put("Marauder", "Barracks");
@@ -336,6 +339,9 @@ public class Model {
 		build.put("Banshee", "Starport");
 		build.put("Raven", "Starport");
 		build.put("Battlecruiser", "Starport");
+		  // research
+		build.put("StimPack", "TechLab");
+		build.put("WeaponsLevel1", "EngineeringBay");
 		// TECH //////////////////////////////////////////////////////////
 		tech.put("Marauder", "TechLab");
 		tech.put("Reaper", "TechLab");
@@ -345,6 +351,8 @@ public class Model {
 		tech.put("Banshee", "TechLab");
 		tech.put("Raven", "TechLab");
 		tech.put("Battlecruiser", "TechLab");
+		//
+		tech.put("StimPack", "Barracks");
 	}
 
 	public void addUnitAction(String dropDown) {
@@ -422,7 +430,7 @@ public class Model {
 					if(x <= x2 && x2<end && end<=end2) {
 						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
-					} else if(x2<x && x<end2 && end2<=end) {
+					} else if(x2<=x && x<end2 && end2<=end) {
 						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x<x2 && end2<end) {
@@ -460,6 +468,18 @@ public class Model {
 			action = new SCActionBuildAddon(this, x, y, dropDown);
 		} else if(dropDown.equals("Reactor")) {
 			action = new SCActionBuildAddon(this, x, y, dropDown);
+		} else if(dropDown.equals("LiftBarracks")) {
+			action = new SCActionLift(this, x, y, "Barracks");
+		} else if(dropDown.equals("LiftFactory")) {
+			action = new SCActionLift(this, x, y, "Factory");
+		} else if(dropDown.equals("LiftStarport")) {
+			action = new SCActionLift(this, x, y, "Starport");
+		} else if(dropDown.equals("LandBarracks")) {
+			action = new SCActionLand(this, x, y, "Barracks");
+		} else if(dropDown.equals("LandFactory")) {
+			action = new SCActionLand(this, x, y, "Factory");
+		} else if(dropDown.equals("LandStarport")) {
+			action = new SCActionLand(this, x, y, "Starport");
 		} else {
 			action = new SCActionBuilding(this, x, y, dropDown);
 		}
@@ -540,7 +560,7 @@ public class Model {
 			xml+="    <StartTime>"+action.getStartTime()+"</StartTime>\n";
 			xml+="    <Y>"+action.getY()+"</Y>\n";
 			//xml+="    <Duration>"+action.getDuration()+"</Duration>\n";
-			xml+="    <Option>"+action.getBuilding()+"</Option>\n";
+			xml+="    <Option>"+action.getOption()+"</Option>\n";
 			xml+="  </Action>\n";
 		}
 		xml+="</Actions>\n";
@@ -607,7 +627,7 @@ public class Model {
 		int y = getIntValue(element,"Y");
 		//int duration = getIntValue(element, "Duration");
 		String name = getTextValue(element, "Name");
-		String building = getTextValue(element, "Option");
+		String option = getTextValue(element, "Option");
 		SCAction action=null;
 		if(c.equals("SCActionBuilding")) {
 			action = new SCActionBuilding(this, startTime, y, name);
@@ -628,7 +648,11 @@ public class Model {
 		} else if(c.equals("SCActionUpgradeBase")) {
 			action = new SCActionUpgradeBase(this, startTime, y, name);
 		} else if(c.equals("SCActionBuildAddon")) {
-			action = new SCActionBuildAddon(this, startTime, y, name, building);
+			action = new SCActionBuildAddon(this, startTime, y, name, option);
+		} else if(c.equals("SCActionLift")) {
+			action = new SCActionLift(this, startTime, y, name, option);
+		} else if(c.equals("SCActionLand")) {
+			action = new SCActionLand(this, startTime, y, name, option);
 		} else {
 			System.out.println("Unknown class type = " + c);
 		}
@@ -991,6 +1015,175 @@ public class Model {
 		return found;
 	}
 
+	public boolean freeAddonExists(String addon) {
+		boolean addonFound=false;
+		SCAddon a;
+		int i = 0;
+		while(i < objects.size() && !addonFound) {
+			if(objects.get(i) instanceof SCAddon) {
+				a = (SCAddon)objects.get(i);
+				if(a.getName().equals(addon) && a.getQueueLength()==0 &&
+						a.isComplete() && a.getAttachedTo().equals("")) {
+					addonFound=true;
+
+				}
+			}
+			i++;
+		}
+		return addonFound;
+
+	}
+
+	public boolean lift(String name, String addon) {
+		System.out.println(printTime() + "   <Model> Lift "+name+" off of "+addon);
+		int i = 0;
+		int b =-1;
+		int c =-1;
+		boolean buildingFound=false;
+		boolean addonFound=false;
+		SCStructure s;
+		SCAddon a;
+		if(addon.equals("none")) {
+			while(i < objects.size() && !buildingFound) {
+				if(objects.get(i) instanceof SCStructure) {
+					s = (SCStructure)objects.get(i);
+					if(s.getName().equals(name) && s.isComplete() && s.getQueueLength()==0 &&
+							s.isAvailable() && s.getAddonName().equals("") && !s.isLifted()) {
+						b = i;
+						buildingFound=true;
+					}
+				}
+				i++;
+			}
+
+			if(buildingFound ) {
+				if(objects.get(b).lift()) {
+					return true;
+				} else {
+					System.out.println(printTime() + "   <Model:lift> Lift structure failed");
+					return false;
+				}
+			} else {
+				System.out.println(printTime() + "   <Model:lift> BuildingFound = " + buildingFound + " AddonFound = " + addonFound);
+				return false;
+			}
+		} else {
+			while(i < objects.size() && (!buildingFound || !addonFound)) {
+				if(objects.get(i) instanceof SCStructure) {
+					s = (SCStructure)objects.get(i);
+					if(s.getName().equals(name) && s.isComplete() && s.getQueueLength()==0 &&
+							s.isAvailable() && s.getAddonName().equals(addon) && !s.isLifted()) {
+						b = i;
+						buildingFound=true;
+					}
+				}
+				if(objects.get(i) instanceof SCAddon) {
+					a = (SCAddon)objects.get(i);
+					if(a.getName().equals(addon) && a.getQueueLength()==0 && a.isAvailable() &&
+							a.isComplete() && a.getAttachedTo().equals(name)) {
+						c = i;
+						addonFound=true;
+
+					}
+				}
+				i++;
+			}
+
+			if(buildingFound && addonFound) {
+				if(objects.get(b).lift()) {
+					if(objects.get(c).detach()) {
+						return true;
+					} else {
+						System.out.println(printTime() + "   <Model:lift> Detach addon failed");
+						return false;
+					}
+				} else {
+					System.out.println(printTime() + "   <Model:lift> Lift structure failed");
+					return false;
+				}
+			} else {
+				System.out.println(printTime() + "   <Model:lift> BuildingFound = " + buildingFound + " AddonFound = " + addonFound);
+				return false;
+			}
+		}
+
+	}
+
+	public boolean land(String name, String addon) {
+		System.out.println(printTime() + "   <Model> Land "+name+" on "+addon);
+		int i = 0;
+		int b =-1;
+		int c =-1;
+		boolean buildingFound=false;
+		boolean addonFound=false;
+		SCStructure s;
+		SCAddon a;
+		if(addon.equals("none")) {
+			while(i < objects.size() && !buildingFound) {
+				if(objects.get(i) instanceof SCStructure) {
+					s = (SCStructure)objects.get(i);
+					if(s.getName().equals(name) && s.isComplete() && s.getQueueLength()==0 
+							&& s.getAddonName().equals("") && s.isLifted()) {
+						b = i;
+						buildingFound=true;
+					}
+				}
+				i++;
+			}
+			if(buildingFound) {
+				if(objects.get(b).land(addon)) {
+					return true;
+				} else {
+					System.out.println(printTime() + "   <Model:land> Land building failed");
+					return false;
+				}
+			} else {
+				System.out.println(printTime() + "   <Model:lift> BuildingFound = " + buildingFound);
+				return false;
+			}
+
+		} else {
+			while(i < objects.size() && (!buildingFound || !addonFound)) {
+				if(objects.get(i) instanceof SCStructure) {
+					s = (SCStructure)objects.get(i);
+					if(s.getName().equals(name) && s.isComplete() && s.getQueueLength()==0 
+							&& s.getAddonName().equals("") && s.isLifted()) {
+						b = i;
+						buildingFound=true;
+					}
+				}
+				if(objects.get(i) instanceof SCAddon) {
+					a = (SCAddon)objects.get(i);
+					if(a.getName().equals(addon) && a.getQueueLength()==0 && a.isAvailable() &&
+							a.isComplete() && a.getAttachedTo().equals("")) {
+						c = i;
+						addonFound=true;
+
+					}
+				}
+				i++;
+			}
+
+			if(buildingFound && addonFound) {
+				if(objects.get(b).land(addon)) {
+					if(objects.get(c).attach(name)) {
+						return true;
+					} else {
+						System.out.println(printTime() + "   <Model:lift> Attach addon failed");
+						return false;
+					}
+				} else {
+					System.out.println(printTime() + "   <Model:lift> Land structure failed");
+					return false;
+				}
+			} else {
+				System.out.println(printTime() + "   <Model:lift> BuildingFound = " + buildingFound + " AddonFound = " + addonFound);
+				return false;
+			}
+		}
+	}
+
+
 	public void startMarquee(int x, int y) {
 		mX1=x;
 		mY1=y;
@@ -1119,8 +1312,9 @@ public class Model {
 		y2 -= border;
 		for(int i = 0; i < actions.size(); i++) {
 			if(actions.get(i).getPopup()==true) {
-				if(actions.get(i).getName().equals("TechLab") || actions.get(i).getName().equals("Reactor")) {
-					SCActionBuildAddon a = (SCActionBuildAddon)actions.get(i);
+				if(actions.get(i).getOptionsSize()>0) {
+					//SCActionBuildAddon a = (SCActionBuildAddon)actions.get(i);
+					SCAction a = actions.get(i);
 					int x3 = (int)(x2-(scale * (a.getStartTime()+a.getDuration())));
 					int y3 = y2 - (actions.get(i).getY() * spacing) - thickness;
 					y3 /= 14;
@@ -1135,8 +1329,8 @@ public class Model {
 		y2 -= thickness;
 		for(int i = 0; i < actions.size(); i++) {
 			actions.get(i).setPopup(false);
-			if(actions.get(i).getName().equals("TechLab") || actions.get(i).getName().equals("Reactor")) {
-				SCActionBuildAddon a = (SCActionBuildAddon)actions.get(i);
+			if(actions.get(i).getOptionsSize()>0) {
+				SCAction a = actions.get(i);
 				if(a.isSelected()) {
 					int t = (int)((scale * (a.getStartTime()+a.getDuration()))-x2);
 					//System.out.println(x + " " + y + " " + t + " " + y2);
@@ -1314,8 +1508,11 @@ public class Model {
 	}
 
 	public String[] getBuildingOptions() {
-		String[] s = {"SupplyDepot", "Refinery","Barracks", "OrbitalCommand","Factory", "Starport", "TechLab", "Reactor","CommandCenter", "CalldownSupply",
-				"Bunker","EngineeringBay","Armory",  "GhostAcademy", "Missile Turret","PlanetaryFortress","FusionCore", "SensorTower"};
+		String[] s = {"SupplyDepot", "Refinery","Barracks", "OrbitalCommand","Factory",
+				"Starport", "TechLab", "Reactor", "LiftBarracks","LiftFactory",
+				"LiftStarport","LandBarracks","LandFactory","LandStarport","CommandCenter", "CalldownSupply",
+				"Bunker","EngineeringBay","Armory",  "GhostAcademy", "Missile Turret",
+				"PlanetaryFortress","FusionCore", "SensorTower"};
 		return s;
 	}
 
@@ -1592,7 +1789,6 @@ public class Model {
 			return false;
 		}
 	}
-
 
 
 }
