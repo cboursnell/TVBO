@@ -1,0 +1,42 @@
+TVBO by Cyanophage
+
+Terran Visual Build Order Designer
+
+-- Introduction --
+
+Intro goes here. Stuff about the project.
+
+-- Controls --
+
+Select actions by clicking on them or dragging a box around them.
+Hold down shift to select add to a selection, and hold down control
+to select all actions of that type.
+
+W - Move action up a row
+S - Move action down a row
+A - Move action left 1 second
+D - Move action right 1 second
+Q - Move action left 30 seconds
+E - Move action right 30 seconds
+R - Move action to where it can complete
+Z - Scroll window one way
+X - Scroll window the other way
+Numpad + Increase horizontal scale
+Numpad - Decrease horizontal scale
+
+-- Addons --
+
+Adding actions for addons are all in the 'Buildings' drop down menu.
+From here you can add new addons, lift and land buildings. When you
+add a new addon you need to specify what building you want it to be
+built on. Select the action, click the square in the lower right
+corner and select the name of the production building from the popup
+box that appears. Then move the action to where you want in the time
+line.
+
+To swap addons around you can add the Lift and Land actions from the
+building menu.
+
+-- Feedback --
+
+Please send me a PM on Teamliquid.net or on Github
