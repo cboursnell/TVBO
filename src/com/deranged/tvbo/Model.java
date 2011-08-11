@@ -224,6 +224,48 @@ public class Model {
 		mineralCost.put("Reactor", 50);
 		mineralCost.put("MissileTurret", 100);
 		mineralCost.put("SensorTower", 125);
+		// research //
+		mineralCost.put("CombatShield", 100);
+		mineralCost.put("StimPack", 100);
+		mineralCost.put("ConcussiveShells", 50);
+		mineralCost.put("NitroPack", 50);
+		mineralCost.put("InfernalPreigniter", 150);
+		mineralCost.put("SiegeTech", 100);
+		mineralCost.put("250mmStrikeCannons", 150);
+		mineralCost.put("CaduceusReactor", 100);
+		mineralCost.put("CorvidReactor", 150);
+		mineralCost.put("DurableMaterials", 150);
+		mineralCost.put("SeekerMissile", 150);
+		mineralCost.put("CloakingField", 200);
+		
+		mineralCost.put("InfantryWeaponsLevel1", 100);
+		mineralCost.put("InfantryWeaponsLevel2", 175);
+		mineralCost.put("InfantryWeaponsLevel3", 250);
+		mineralCost.put("InfantryArmorLevel1", 100);
+		mineralCost.put("InfantryArmorLevel2", 175);
+		mineralCost.put("InfantryArmorLevel3", 250);
+		mineralCost.put("NeosteelFrame", 100);
+		mineralCost.put("BuildingArmor", 150);
+		mineralCost.put("HiSecAutoTracking", 100);
+		
+		mineralCost.put("VehicleWeaponsLevel1", 100);		
+		mineralCost.put("VehicleWeaponsLevel2", 175);		
+		mineralCost.put("VehicleWeaponsLevel3", 250);		
+		mineralCost.put("VehicleArmorLevel1", 100);		
+		mineralCost.put("VehicleArmorLevel2", 175);		
+		mineralCost.put("VehicleArmorLevel3", 250);
+		mineralCost.put("ShipWeaponsLevel1", 100);		
+		mineralCost.put("ShipWeaponsLevel2", 175);		
+		mineralCost.put("ShipWeaponsLevel3", 250);		
+		mineralCost.put("ShipArmorLevel1", 150);		
+		mineralCost.put("ShipArmorLevel2", 225);		
+		mineralCost.put("ShipArmorLevel3", 300);
+		
+		mineralCost.put("PersonalCloaking", 120);
+		mineralCost.put("Nuke", 60);
+		mineralCost.put("MoebiusReactor", 80);
+		mineralCost.put("BehemothReactor", 80);
+		mineralCost.put("WeaponRefit", 60);
 
 		// GAS COST //////////////////////////////////////////////////////
 		// UNITS //
@@ -253,6 +295,48 @@ public class Model {
 		gasCost.put("TechLab", 25);
 		gasCost.put("Reactor", 50);
 		gasCost.put("SensorTower", 100);
+		// research //
+		gasCost.put("CombatShield", 100);
+		gasCost.put("StimPack", 100);
+		gasCost.put("ConcussiveShells", 50);
+		gasCost.put("NitroPack", 50);
+		gasCost.put("InfernalPreigniter", 150);
+		gasCost.put("SiegeTech", 100);
+		gasCost.put("250mmStrikeCannons", 150);
+		gasCost.put("CaduceusReactor", 100);
+		gasCost.put("CorvidReactor", 150);
+		gasCost.put("DurableMaterials", 150);
+		gasCost.put("SeekerMissile", 150);
+		gasCost.put("CloakingField", 200);
+		
+		gasCost.put("InfantryWeaponsLevel1", 100);
+		gasCost.put("InfantryWeaponsLevel2", 175);
+		gasCost.put("InfantryWeaponsLevel3", 250);
+		gasCost.put("InfantryArmorLevel1", 100);
+		gasCost.put("InfantryArmorLevel2", 175);
+		gasCost.put("InfantryArmorLevel3", 250);
+		gasCost.put("NeosteelFrame", 100);
+		gasCost.put("BuildingArmor", 150);
+		gasCost.put("HiSecAutoTracking", 100);
+		
+		gasCost.put("VehicleWeaponsLevel1", 100);		
+		gasCost.put("VehicleWeaponsLevel2", 175);		
+		gasCost.put("VehicleWeaponsLevel3", 250);		
+		gasCost.put("VehicleArmorLevel1", 100);		
+		gasCost.put("VehicleArmorLevel2", 175);		
+		gasCost.put("VehicleArmorLevel3", 250);
+		gasCost.put("ShipWeaponsLevel1", 100);		
+		gasCost.put("ShipWeaponsLevel2", 175);		
+		gasCost.put("ShipWeaponsLevel3", 250);		
+		gasCost.put("ShipArmorLevel1", 150);		
+		gasCost.put("ShipArmorLevel2", 225);		
+		gasCost.put("ShipArmorLevel3", 300);
+		
+		gasCost.put("PersonalCloaking", 120);
+		gasCost.put("Nuke", 60);
+		gasCost.put("MoebiusReactor", 80);
+		gasCost.put("BehemothReactor", 80);
+		gasCost.put("WeaponRefit", 60);
 
 		// TIMES /////////////////////////////////////////////////////////
 		// UNITS //
@@ -291,6 +375,48 @@ public class Model {
 		times.put("SensorTower", 25);
 		times.put("MissileTurret", 25);
 		times.put("Lift", 25);
+		// research //
+		times.put("CombatShield", 110);
+		times.put("StimPack", 170);
+		times.put("ConcussiveShells", 60);
+		times.put("NitroPack", 100);
+		times.put("InfernalPreigniter", 110);
+		times.put("SiegeTech", 80);
+		times.put("250mmStrikeCannons", 110);
+		times.put("CaduceusReactor", 80);
+		times.put("CorvidReactor", 110);
+		times.put("DurableMaterials", 110);
+		times.put("SeekerMissile", 110);
+		times.put("CloakingField", 110);
+		
+		times.put("InfantryWeaponsLevel1", 160);
+		times.put("InfantryWeaponsLevel2", 190);
+		times.put("InfantryWeaponsLevel3", 220);
+		times.put("InfantryArmorLevel1", 160);
+		times.put("InfantryArmorLevel2", 190);
+		times.put("InfantryArmorLevel3", 220);
+		times.put("NeosteelFrame", 110);
+		times.put("BuildingArmor", 140);
+		times.put("HiSecAutoTracking", 80);
+		
+		times.put("VehicleWeaponsLevel1", 160);		
+		times.put("VehicleWeaponsLevel2", 190);		
+		times.put("VehicleWeaponsLevel3", 220);		
+		times.put("VehicleArmorLevel1", 160);		
+		times.put("VehicleArmorLevel2", 190);		
+		times.put("VehicleArmorLevel3", 220);
+		times.put("ShipWeaponsLevel1", 160);		
+		times.put("ShipWeaponsLevel2", 190);		
+		times.put("ShipWeaponsLevel3", 220);		
+		times.put("ShipArmorLevel1", 160);		
+		times.put("ShipArmorLevel2", 190);		
+		times.put("ShipArmorLevel3", 220);
+		
+		times.put("PersonalCloaking", 120);
+		times.put("Nuke", 60);
+		times.put("MoebiusReactor", 80);
+		times.put("BehemothReactor", 80);
+		times.put("WeaponRefit", 60);
 
 		// FOOD //////////////////////////////////////////////////////////
 		foods.put("SCV", 1);
@@ -326,6 +452,10 @@ public class Model {
 		prereqs.put("SensorTower", "EngineeringBay");
 		// research
 		prereqs.put("NitroPack", "Factory");
+		prereqs.put("InfantryWeaponsLevel2", "Armory");
+		prereqs.put("InfantryWeaponsLevel3", "Armory");
+		prereqs.put("InfantryArmorLevel2", "Armory");
+		prereqs.put("InfantryArmorLevel3", "Armory");
 		// BUILD /////////////////////////////////////////////////////////
 		build.put("Marine", "Barracks");
 		build.put("Marauder", "Barracks");
@@ -340,8 +470,46 @@ public class Model {
 		build.put("Raven", "Starport");
 		build.put("Battlecruiser", "Starport");
 		  // research
-		build.put("StimPack", "TechLab");
-		build.put("WeaponsLevel1", "EngineeringBay");
+		build.put("CombatShield", "Barracks");
+		build.put("StimPack", "Barracks");
+		build.put("ConcussiveShells", "Barracks");
+		build.put("NitroPack", "Barracks");
+		build.put("InfernalPreigniter", "Factory");
+		build.put("SiegeTech", "Factory");
+		build.put("250mmStrikeCannons", "Factory");
+		build.put("CaduceusReactor", "Starport");
+		build.put("CorvidReactor", "Starport");
+		build.put("DurableMaterials", "Starport");
+		build.put("SeekerMissile", "Starport");
+		build.put("CloakingField", "Starport");
+		
+		build.put("InfantryWeaponsLevel1", "EngineeringBay");
+		build.put("InfantryWeaponsLevel2", "EngineeringBay");
+		build.put("InfantryWeaponsLevel3", "EngineeringBay");
+		build.put("InfantryArmorLevel1", "EngineeringBay");
+		build.put("InfantryArmorLevel2", "EngineeringBay");
+		build.put("InfantryArmorLevel3", "EngineeringBay");
+		build.put("NeosteelFrame", "EngineeringBay");
+		build.put("BuildingArmor", "EngineeringBay");
+		build.put("HiSecAutoTracking", "EngineeringBay");
+		
+		build.put("VehicleWeaponsLevel1", "Armory");		
+		build.put("VehicleWeaponsLevel2", "Armory");		
+		build.put("VehicleWeaponsLevel3", "Armory");		
+		build.put("VehicleArmorLevel1", "Armory");		
+		build.put("VehicleArmorLevel2", "Armory");		
+		build.put("VehicleArmorLevel3", "Armory");
+		build.put("ShipWeaponsLevel1", "Armory");		
+		build.put("ShipWeaponsLevel2", "Armory");		
+		build.put("ShipWeaponsLevel3", "Armory");		
+		build.put("ShipArmorLevel1", "Armory");		
+		build.put("ShipArmorLevel2", "Armory");		
+		build.put("ShipArmorLevel3", "Armory");
+		
+		build.put("PersonalCloaking", "GhostAcademy");
+		build.put("BehemothReactor", "FusionCore");
+		build.put("WeaponRefit", "FusionCore");
+		build.put("MoebiusReactor", "GhostAcademy");
 		// TECH //////////////////////////////////////////////////////////
 		tech.put("Marauder", "TechLab");
 		tech.put("Reaper", "TechLab");
@@ -352,7 +520,18 @@ public class Model {
 		tech.put("Raven", "TechLab");
 		tech.put("Battlecruiser", "TechLab");
 		//
-		tech.put("StimPack", "Barracks");
+		tech.put("CombatShield", "TechLab");
+		tech.put("StimPack", "TechLab");
+		tech.put("ConcussiveShells", "TechLab");
+		tech.put("NitroPack", "TechLab");
+		tech.put("InfernalPreigniter", "TechLab");
+		tech.put("SiegeTech", "TechLab");
+		tech.put("250mmStrikeCannons", "TechLab");
+		tech.put("CaduceusReactor", "TechLab");
+		tech.put("CorvidReactor", "TechLab");
+		tech.put("DurableMaterials", "TechLab");
+		tech.put("SeekerMissile", "TechLab");
+		tech.put("CloakingField", "TechLab");
 	}
 
 	public void addUnitAction(String dropDown) {
@@ -517,20 +696,78 @@ public class Model {
 				x2=action2.getStartTime();
 				end2=action2.getStartTime()+action2.getDuration();
 				if(action2.getY() == y) {
-					if(x < x2 && x2<end && end<end2) {
-						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+					if(x <= x2 && x2<end && end<=end2) {
 						space=false;
-					} else if(x2<x && x<end2 && end2<end) {
-						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+					} else if(x2<=x && x<end2 && end2<=end) {
 						space=false;
 					} else if(x<x2 && end2<end) {
-						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
 					} else if(x2<x && end<end2) {
-						//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 						space=false;
-					} else {
-					}
+					} 
+				}
+			}
+			if(!space) {
+				y++;
+			}
+		}
+		action.setY(y);
+
+	}
+	
+
+
+	public void addResearchAction(String dropDown) {
+		int x=maxTime-1;
+		int y=1;
+		int dur = getTime(dropDown);
+		//System.out.println(dropDown);
+		SCAction action;
+		
+		action = new SCActionResearch(this, x, y, dropDown);
+
+		actions.add(action);
+		this.reset();
+		this.play();
+
+		if(action.isComplete()) {
+			while(action.getStartTime()>0 && action.isComplete()) {
+				action.addStartTime(-1);
+				this.reset();
+				this.play();
+				if(!action.isComplete()) {
+					action.addStartTime(1);
+				}
+			}
+		} else {
+			action.setStartTime(lastTime);
+		}
+		x = action.getStartTime();
+		int size = actions.size();
+		int x2;
+		int end2;
+		//if(markY>=0) {
+		//	y = markY;
+		//}
+		int end = x+dur;
+		boolean space = false;
+		SCAction action2;
+		while(!space) {
+			space=true;
+			for(int i = 0; i < size-1;i++) {
+				action2 = actions.get(i);
+				x2=action2.getStartTime();
+				end2=action2.getStartTime()+action2.getDuration();
+				if(action2.getY() == y) {
+					if(x <= x2 && x2<end && end<=end2) {
+						space=false;
+					} else if(x2<=x && x<end2 && end2<=end) {
+						space=false;
+					} else if(x<x2 && end2<end) {
+						space=false;
+					} else if(x2<x && end<end2) {
+						space=false;
+					} 
 				}
 			}
 			if(!space) {
@@ -653,6 +890,8 @@ public class Model {
 			action = new SCActionLift(this, startTime, y, name, option);
 		} else if(c.equals("SCActionLand")) {
 			action = new SCActionLand(this, startTime, y, name, option);
+		} else if(c.equals("SCActionResearch")) {
+			action = new SCActionResearch(this, startTime, y, name);
 		} else {
 			System.out.println("Unknown class type = " + c);
 		}
@@ -852,6 +1091,21 @@ public class Model {
 		}
 		return ready;
 	}
+	public boolean alreadyStarted(String name) {
+		boolean found = false;
+		int i = 0;
+		while(i < objects.size() && !found) {
+			if(objects.get(i).getName().equals(name)) {
+				found=true;
+			} else if(objects.get(i) instanceof SCStructure) {
+				if(((SCStructure)objects.get(i)).getConstructingName().equals(name)) {
+					found=true;
+				}
+			}
+			i++;
+		}
+		return found;
+	}
 
 
 	public boolean hasAddon(String build, String tech) {
@@ -930,7 +1184,6 @@ public class Model {
 		while(!found && i < objects.size()) {
 			if(objects.get(i).getName().equals(build) && objects.get(i).isComplete() && objects.get(i).isAvailable()) {
 				SCStructure s = (SCStructure)objects.get(i);
-				//if(s.getQueueLength()<s.getMaxQueue()) {
 				if(s.getQueueLength()==0) {
 					if(tech!=null) {
 						if(s.getAddonName().equals(tech)) {
@@ -955,6 +1208,60 @@ public class Model {
 			return false;
 		}
 
+	}
+	
+	public boolean addResearch(String name) {
+		String build = getBuild(name);  // eg ebay for +1, barracks for stimpack
+		String tech = getTech(name);    // eg techlab for stimpack, null for none addon research
+		boolean buildingFound=false;
+		boolean addonFound=false;
+		int i=0;
+		int b=-1;
+		int c=-1;
+		int size = objects.size();
+		if(tech==null) {
+			while(i < size) {
+				if(objects.get(i).getName().equals(build) && objects.get(i).isAvailable()) {
+					buildingFound=true;
+					b=i;
+				}
+				i++;
+			}
+			if(buildingFound) {
+				if(((SCStructure)objects.get(b)).addObjectToQueue(name)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			//System.out.println("research at an " + tech + " on a "+build);
+			while(i < size) {
+				if(objects.get(i).getName().equals(build)) {
+					if(((SCStructure)objects.get(i)).getAddonName().equals(tech)) {
+						buildingFound=true;
+						b=i;
+					}
+				}
+				if(objects.get(i).getName().equals(tech) && objects.get(i).isAvailable()) {
+					if(((SCAddon)objects.get(i)).getAttachedTo().equals(build)) {
+						addonFound=true;
+						c=i;
+					}
+				}
+				i++;
+			}
+			if(buildingFound && addonFound) {
+				if(((SCAddon)objects.get(c)).addObjectToQueue(name)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+		}
+		return true;
+		
 	}
 
 	public int getmX1() {
@@ -1256,7 +1563,7 @@ public class Model {
 					&& x < actions.get(a).getStartTime() + actions.get(a).getDuration()
 					&& y >= actions.get(a).getY()
 					&& y < actions.get(a).getY() + 1) {
-				actions.get(a).select();
+				actions.get(a).toggleSelect();
 				f=true;
 				//System.out.println("Selecting action " + a);
 			}
@@ -1448,6 +1755,31 @@ public class Model {
 		s +="Supply        : "+food+"/"+supply+"\n";
 		s +="Total Minerals: "+totalMineralsMined+"\n";
 		s +="Total Gas     : "+totalGasMined+"\n";
+		s +="\n";
+		String name;
+		for(int i = 0; i < bases.size(); i++) {
+			if(i==0) {
+				s += bases.get(i).scvCount() +"("+ bases.get(i).scvCountGas()+")" + " SCVs at main\n";
+			} else if(i==1) {
+				s += bases.get(i).scvCount() +"("+ bases.get(i).scvCountGas() +")"+ " SCVs at natural\n";
+			} else {
+				s += bases.get(i).scvCount() +"("+ bases.get(i).scvCountGas()+")" + " SCVs at base " + (i+1) + "\n";
+			}
+		}
+		s+="\n";
+		for(int i = 0; i < objects.size(); i++) {
+			name = objects.get(i).getName();
+			if(name.equals("Barracks") || name.equals("Factory") || name.equals("Starport")) {
+				if(!((SCStructure)objects.get(i)).getAddonName().equals("")) {
+					name += " with ";
+					name += ((SCStructure)objects.get(i)).getAddonName();
+				}
+			} 
+			s += name;
+			s += "\n";
+		}
+		
+		
 		return s;
 	}
 
@@ -1517,7 +1849,45 @@ public class Model {
 	}
 
 	public String[] getResearchOptions() {
-		String[] s = {"StimPack", "CombatShield", "ConcussiveShells","NitroBoost","InfernalPreigniter","SiegeMode", "MobiusReactor"};
+		String[] s = {"StimPack",
+				"CombatShield",
+				"ConcussiveShells",
+				"NitroPack",
+				"InfernalPreigniter",
+				"SiegeTech",
+				"250mmStrikeCannons",
+				"CloakingField",
+				"SeekerMissile",
+				"CaduceusReactor",
+				"CorvidReactor",
+				"BehemothReactor",
+				"PersonalCloaking",
+				"MoebiusReactor",
+				"Nuke",
+				"InfantryWeaponsLevel1",
+				"InfantryWeaponsLevel2",
+				"InfantryWeaponsLevel3",
+				"InfantryArmorLevel1",
+				"InfantryArmorLevel2",
+				"InfantryArmorLevel3",
+				"VehicleWeaponsLevel1",
+				"VehicleWeaponsLevel2",
+				"VehicleWeaponsLevel3",
+				"VehicleArmorLevel1",
+				"VehicleArmorLevel2",
+				"VehicleArmorLevel3",
+				"ShipWeaponsLevel1",
+				"ShipWeaponsLevel2",
+				"ShipWeaponsLevel3",
+				"ShipArmorLevel1",
+				"ShipArmorLevel2",
+				"ShipArmorLevel3",
+				"WeaponRefit",
+				"NeosteelFrame",
+				"BuildingArmor",
+				"DurableMaterials",
+				"HiSecAutoTracking",
+				};
 		return s;
 	}
 

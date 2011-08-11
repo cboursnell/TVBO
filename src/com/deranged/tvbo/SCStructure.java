@@ -85,17 +85,17 @@ public class SCStructure extends SCObject {
 				model.addFood(model.getFood(name));
 				return true;
 			} else {
-				System.out.println("Oh Shit!");
+				System.out.println("<SCStructure>Oh Shit!");
 				return false;
 			}
 		} else if(constructing==null && queue==0 && complete) {
-			setBuildtime(buildtime);
+			//setBuildtime(buildtime);
 			constructing=new SCObject(model, name);
 			model.spendMinerals(model.getMineralCost(name));
 			model.spendGas(model.getGasCost(name));
 			model.addFood(model.getFood(name));
 			//con = name;
-			progress=0;
+			//progress=0;
 			//queue++;
 			return true;
 		} else {
@@ -131,6 +131,14 @@ public class SCStructure extends SCObject {
 
 		}
 		return true;
+	}
+	
+	public String getConstructingName() {
+		if(constructing!=null) {
+			return constructing.getName();
+		} else {
+			return "";
+		}
 	}
 
 	public int getQueueLength() {

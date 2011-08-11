@@ -146,14 +146,19 @@ public class Base extends SCStructure {
 	
 	public boolean addMule() {
 		if(energy>=50) {
-			int i = 0;
+			int most=0;
+			int patch=-1;
 			boolean found=false;
-			while(i < 8 && !found) {
-				if(!patches[i].hasMule() && patches[i].resource>300) {
-					patches[i].addMule(model);
-					found=true;
+			//while(i < 8 && !found) {
+			for(int i = 0; i < 8; i++) {
+				if(!patches[i].hasMule() && patches[i].resource>most) {
+					most = patches[i].resource;
+					patch = i;
 				}
-				i++;
+			}
+			if(patch>=0) {
+				patches[patch].addMule(model);
+				found=true;
 			}
 			return found;
 		} else {
@@ -311,6 +316,12 @@ public class Base extends SCStructure {
 		for(int i = 0;i<8;i++){
 			t+=patches[i].scvs;
 		}
+		return t;
+	}
+	public int scvCountGas() {// on gas
+		int t=0;
+		t+=gas[0].getSCVCount();
+		t+=gas[1].getSCVCount();
 		return t;
 	}
 

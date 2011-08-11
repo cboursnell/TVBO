@@ -201,6 +201,12 @@ public class TVBO {
 		loadButton = new JButton("Load");
 		saveButton = new JButton("Save");
 		clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.clear();
+				viewPanel.repaint();
+			}
+		});
 		printButton = new JButton("Print");
 		// BUTTONS PANEL //////////////////////////////////////////////////////////////////////////
 		GroupLayout gl_buttonsPanel = new GroupLayout(buttonsPanel);
@@ -394,6 +400,15 @@ public class TVBO {
 		buildingsAddButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				model.addBuildingAction((String)buildingsDropDown.getSelectedItem());
+				model.reset();
+				model.play();
+				textArea.setText(model.setTotalsText());
+				viewPanel.repaint();
+			}
+		});
+		researchAddButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				model.addResearchAction((String)researchDropDown.getSelectedItem());
 				model.reset();
 				model.play();
 				textArea.setText(model.setTotalsText());

@@ -134,6 +134,14 @@ public class SCAction {
 	public void select() {
 		selected = true;
 	}
+
+	public void toggleSelect() {
+		if(selected) {
+			selected=false;
+		} else {
+			selected=true;
+		}
+	}
 	public void deselect() {
 		selected = false;
 	}

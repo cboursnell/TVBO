@@ -50,7 +50,7 @@ public class SCActionBuildAddon extends SCAction {
 	}
 	public void setOption(int i) {
 		option = options.get(i);
-		System.out.println("<SCActionBuildAddon> Building set to " + option);
+		//System.out.println("<SCActionBuildAddon> Building set to " + option);
 		model.reset();
 		model.play();
 	}
