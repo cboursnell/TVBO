@@ -2161,4 +2161,16 @@ public class Model {
 	}
 
 
+	public String printBuild() {
+		String s="";
+		for(int t = 0;t < maxTime;t++) {
+			for(int i = 0;i < actions.size();i++) {
+				if(actions.get(i).getStartTime()==t) {
+					s+=printTime(t) + " - " + actions.get(i).getSupplyPoint() + " - " + actions.get(i).toString()+"\n";
+				}
+			}
+		}
+		return s;
+	}
+
 }

@@ -85,7 +85,7 @@ public class SCStructure extends SCObject {
 				model.addFood(model.getFood(name));
 				return true;
 			} else {
-				System.out.println("<SCStructure>Oh Shit!");
+				//System.out.println("<SCStructure>Oh Shit!");
 				return false;
 			}
 		} else if(constructing==null && queue==0 && complete) {

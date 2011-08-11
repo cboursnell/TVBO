@@ -351,6 +351,14 @@ public class TVBO {
 				//System.out.println(model.getWidth() +" x "+model.getHeight());
 			}
 		});
+		printButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//BuildOrderPopup p = new BuildOrderPopup(model.printBuild());
+				//p.setVisible(true);
+				Popup p = new Popup(model.printBuild());
+				p.setVisible(true);
+			}
+		});
 		
 		viewPanel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
