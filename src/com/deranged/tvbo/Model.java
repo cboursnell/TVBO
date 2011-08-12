@@ -2451,4 +2451,22 @@ public class Model {
 		return s;
 	}
 
+	public void selectNext() {
+		int i = 0;
+		int k=-1;
+		while(i < actions.size()) {
+			if(actions.get(i).isSelected()) {
+				k = i;
+			}
+			i++;
+		}
+		if(k>=0 && k == actions.size()-1) {
+			actions.get(k).deselect();
+			actions.get(0).select();
+		} else if(k>=0){
+			actions.get(k).deselect();
+			actions.get(k+1).select();
+		}
+	}
+
 }

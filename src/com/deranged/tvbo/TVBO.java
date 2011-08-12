@@ -4,7 +4,6 @@ package com.deranged.tvbo;
 
 // TODO 
 //       New addons try to guess what they should be added to
-//       setTotalsText() updating
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -506,7 +505,7 @@ public class TVBO {
 					model.moveSelected(-30,0);
 					model.reset();
 					model.play();
-					viewPanel.repaint();			
+					viewPanel.repaint();
 				} else if(e.getKeyCode()==KeyEvent.VK_E|| e.getKeyCode()==KeyEvent.VK_NUMPAD9) {
 					model.moveSelected(30,0);
 					model.reset();
@@ -522,11 +521,14 @@ public class TVBO {
 					model.reset();
 					model.play();
 					viewPanel.repaint();				
-				} else if(e.getKeyCode()==107) {
+				} else if(e.getKeyCode()==KeyEvent.VK_N) {
+					model.selectNext();
+					viewPanel.repaint();				
+				} else if(e.getKeyCode()==107 || e.getKeyCode()==KeyEvent.VK_V) {
 					//System.out.println("Pressed PLUS");
 					model.changeScale(0.1);
 					viewPanel.repaint();
-				} else if(e.getKeyCode()==109) {
+				} else if(e.getKeyCode()==109 || e.getKeyCode()==KeyEvent.VK_C) {
 					//System.out.println("Pressed MINUS");
 					model.changeScale(-0.1);
 					viewPanel.repaint();
@@ -540,18 +542,6 @@ public class TVBO {
 				textArea.setText(model.setTotalsText());
 			}
 		});
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

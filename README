@@ -2,27 +2,24 @@ TVBO by Cyanophage
 
 Terran Visual Build Order Designer
 
--- Introduction --
-
-Intro goes here. Stuff about the project.
-
 -- Controls --
 
 Select actions by clicking on them or dragging a box around them.
-Hold down shift to select add to a selection, and hold down control
+Hold down shift to add to a selection, and hold down control
 to select all actions of that type.
 
-W - Move action up a row
-S - Move action down a row
-A - Move action left 1 second
-D - Move action right 1 second
-Q - Move action left 30 seconds
-E - Move action right 30 seconds
-R - Move action to where it can complete
-Z - Scroll window one way
-X - Scroll window the other way
-Numpad + Increase horizontal scale
-Numpad - Decrease horizontal scale
+Move action up a row					W		8		up
+Move action down a row					S		2		down
+Move action left 1 second				A		4		left
+Move action right 1 second				D		6		right
+Move action left 30 seconds				Q		7		
+Move action right 30 seconds			E		9
+Move action to where it can complete	R		5
+Scroll window one way					Z		1
+Scroll window the other way				X		3
+Numpad + Increase horizontal scale		V		+
+Numpad - Decrease horizontal scale		C		-
+Delete an action						backspace		del
 
 -- Addons --
 
