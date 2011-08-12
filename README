@@ -29,13 +29,14 @@ Numpad - Decrease horizontal scale
 Adding actions for addons are all in the 'Buildings' drop down menu.
 From here you can add new addons, lift and land buildings. When you
 add a new addon you need to specify what building you want it to be
-built on. Select the action, click the square in the lower right
-corner and select the name of the production building from the popup
-box that appears. Then move the action to where you want in the time
-line.
+built on. Right-click on the action and select the name of the prod-
+uction building from the popup box that appears. Then move the action
+to where you want in the time line.
 
 To swap addons around you can add the Lift and Land actions from the
-building menu.
+building menu. Right-click on the Lift or Land actions to set the
+addon you want. You can land a building on the ground not next to
+an addon by selecting the 'none' option.
 
 -- Feedback --
 

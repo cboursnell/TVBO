@@ -372,8 +372,8 @@ public class View extends JPanel {
 		if(g==null) {
 			System.out.println("graphics are null");
 		} else {
-			if(name.equals("SCV")) {						g.drawImage(scvImg, x, y, null);
-			} else if(name.equals("Mule")) {				g.drawImage(muleImg, x, y, null);
+			if(name.equals("SCV")) {						g.drawImage(scvImg, x-3, y, null);
+			} else if(name.equals("Mule")) {				g.drawImage(muleImg, x-3, y, null);
 			} else if(name.equals("Marine")) {				g.drawImage(marineImg, x, y, null);
 			} else if(name.equals("Marauder")) {			g.drawImage(marauderImg, x, y, null);
 			} else if(name.equals("Ghost")) {				g.drawImage(ghostImg, x, y, null);
@@ -394,8 +394,8 @@ public class View extends JPanel {
 			} else if(name.equals("Armory")) {					g.drawImage(armoryImg, x, y, null);
 			} else if(name.equals("EngineeringBay")) {			g.drawImage(engineeringbayImg, x, y, null);
 			} else if(name.equals("FusionCore")) {				g.drawImage(fusioncoreImg, x, y, null);
-			} else if(name.equals("TechLab")) {					g.drawImage(techlabImg, x, y, null);
-			} else if(name.equals("Reactor")) {					g.drawImage(reactorImg, x, y, null);
+			} else if(name.equals("TechLab")) {					g.drawImage(techlabImg, x-3, y, null);
+			} else if(name.equals("Reactor")) {					g.drawImage(reactorImg, x-3, y, null);
 			} else if(name.equals("CommandCenter")) {			g.drawImage(commandcenterImg, x, y, null);
 			} else if(name.equals("OrbitalCommand")) {			g.drawImage(orbitalcommandImg, x, y, null);
 			} else if(name.equals("MissileTurret")) {			g.drawImage(missileturretImg, x, y, null);
@@ -451,7 +451,7 @@ public class View extends JPanel {
 			} else if(name.equals("LandBarracks")) {					g.drawImage(landImg, x, y, null);
 			} else if(name.equals("LandFactory")) {					g.drawImage(landImg, x, y, null);
 			} else if(name.equals("LandStarport")) {					g.drawImage(landImg, x, y, null);
-			} else if(name.equals("+1 on gas")) {			g.drawImage(gasImg, x, y, null);
+			} else if(name.equals("+1 on gas")) {			g.drawImage(gasImg, x+4, y, null);
 			} else if(name.equals("1 off gas")) {			g.drawImage(mineralsImg, x, y, null);
 			} else {
 				System.out.println("\""+name + "\" not found in <drawIcon>");
@@ -496,8 +496,6 @@ public class View extends JPanel {
 			g.drawImage(ghostacademyImg, x, y, null);
 			g.drawImage(planetaryfortressImg, x, y, null);
 			g.drawImage(supplydepotImg, x, y, null);
-			
-			
 			
 			g.drawImage(combatShieldImg, x, y, null);
 			g.drawImage(stimPackImg, x, y, null);

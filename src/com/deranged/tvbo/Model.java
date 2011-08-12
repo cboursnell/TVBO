@@ -1,6 +1,7 @@
 package com.deranged.tvbo;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,8 +56,6 @@ public class Model {
 	private int[] mineralGraph;
 	private int[] gasGraph;
 	private int[] energyGraph;
-	//
-	private String filename = "terran.xml";
 	//private String totalsText = "";
 	// MARQUEE SELECTION ////////////////////////
 	int mX1=0;
@@ -135,6 +134,7 @@ public class Model {
 
 			time++;
 		}
+		//setTotalsText();
 		//maxTime=lastTime+180;
 		/*
 		SCStructure barracks;
@@ -645,6 +645,8 @@ public class Model {
 		SCAction action;
 		if(dropDown.equals("OrbitalCommand")) {
 			action = new SCActionUpgradeBase(this, x, y, "OrbitalCommand");
+		} else if(dropDown.equals("PlanetaryFortress")) {
+			action = new SCActionUpgradeBase(this, x, y, "PlanetaryFortress");
 		} else if(dropDown.equals("CalldownSupply")) {
 			action = new SCActionCalldownSupply(this, x, y);
 		} else if(dropDown.equals("Refinery")) {
@@ -788,12 +790,7 @@ public class Model {
 
 	}
 
-
-	public void setFileName(String s) {
-		filename = s;
-	}
-
-	public boolean save() {
+	public boolean save(File file) {
 		String xml;
 		SCAction action;
 		xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -819,7 +816,7 @@ public class Model {
 		// fileoutput stream xml
 		BufferedWriter writer = null;
 		try {
-			writer = new BufferedWriter( new FileWriter(filename));
+			writer = new BufferedWriter( new FileWriter(file));
 			writer.write(xml);
 		} catch (IOException e) {
 			System.out.println("Can't write XML to file - " + e);
@@ -837,13 +834,13 @@ public class Model {
 
 		return true;
 	}
-	public boolean load() {
+	public boolean load(File file) {
 		Document doc;
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db;
 		try {
 			db = dbf.newDocumentBuilder();
-			doc = db.parse(filename);
+			doc = db.parse(file);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -1885,20 +1882,20 @@ public class Model {
 							if(action2.getY() == y) {
 								x2=action2.getStartTime();
 								end2=action2.getStartTime()+action2.getDuration();
-
 								if(x <= x2 && x2<end && end<=end2) {
-									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 									space=false;
-								} else if(x2<x && x<end2 && end2<end) {
-									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+								} else if(x2<=x && x<end2 && end2<=end) {
+									//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 									space=false;
 								} else if(x<x2 && end2<end) {
-									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 									space=false;
 								} else if(x2<x && end<end2) {
-									//System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
+									//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2 + "***");
 									space=false;
 								} else {
+									//						System.out.println("y:" + y + " | " + x +" - "+end+" & " + x2 + " - " + end2);
 								}
 
 							}
@@ -1916,22 +1913,113 @@ public class Model {
 	}
 
 	public String setTotalsText() {
+		ArrayList<String> objectNames = new ArrayList<String>();
+		SCStructure b;
+		int n = 13;
+		String name;
+		int[] counts = new int[n];
+		for(int i = 0; i < n; i++) {
+			counts[i]=0;
+		}
+		for(int i = 0; i < objects.size(); i++) {
+			if(objects.get(i).getName().equals("Barracks") || 
+					objects.get(i).getName().equals("Factory") || 
+					objects.get(i).getName().equals("Starport")) {
+				b = (SCStructure)objects.get(i);
+				objectNames.add(b.getName()+":"+b.getAddonName());
+			} else if(objects.get(i).getName().equals("TechLab") ||
+					objects.get(i).getName().equals("Reactor")){
+				
+			} else {
+				objectNames.add(objects.get(i).getName());
+			}
+		}
+		
+		for(int i = 0 ; i < objectNames.size(); i++) {
+			name = objectNames.get(i);
+			if(name.equals("Marine")) {
+				counts[0]++;
+			} else if(name.equals("Marauder")) {
+				counts[1]++;
+			}else if(name.equals("Ghost")) {
+				counts[2]++;
+			}else if(name.equals("Reaper")) {
+				counts[3]++;
+			}else if(name.equals("Hellion")) {
+				counts[4]++;
+			}else if(name.equals("SiegeTank")) {
+				counts[5]++;
+			}else if(name.equals("Thor")) {
+				counts[6]++;
+			}else if(name.equals("Viking")) {
+				counts[7]++;
+			}else if(name.equals("Medivac")) {
+				counts[8]++;
+			}else if(name.equals("Banshee")) {
+				counts[9]++;
+			}else if(name.equals("Raven")) {
+				counts[10]++;
+			}else if(name.equals("Battlecruiser")) {
+				counts[11]++;
+			}else if(name.equals("SupplyDepot")) {
+				counts[12]++;
+			}
+		}
 		String s="";
 		s +="Supply        : "+food+"/"+supply+"\n";
 		s +="Total Minerals: "+totalMineralsMined+"\n";
 		s +="Total Gas     : "+totalGasMined+"\n";
 		s +="\n";
-		String name;
+		// bases and scvs <minerals>&<gas>(<idle>)
 		for(int i = 0; i < bases.size(); i++) {
 			if(i==0) {
-				s += bases.get(i).scvCount() +"&"+ bases.get(i).scvCountGas()+"("+bases.get(i).idleSCVCount()+") SCVs at main\n";
+				s += bases.get(i).scvCount() +"&"+ bases.get(i).scvCountGas()
+						+"("+bases.get(i).idleSCVCount()+") SCVs at main\n";
 			} else if(i==1) {
-				s += bases.get(i).scvCount() +"&"+ bases.get(i).scvCountGas() +"("+bases.get(i).idleSCVCount()+") SCVs at natural\n";
+				s += bases.get(i).scvCount() +"&"+ bases.get(i).scvCountGas()
+						+"("+bases.get(i).idleSCVCount()+") SCVs at natural\n";
 			} else {
-				s += bases.get(i).scvCount() +"&"+ bases.get(i).scvCountGas()+"(" +bases.get(i).idleSCVCount()+") SCVs at base " + (i+1) + "\n";
+				s += bases.get(i).scvCount() +"&"+ bases.get(i).scvCountGas()
+						+"("+bases.get(i).idleSCVCount()+") SCVs at base " + (i+1) + "\n";
 			}
 		}
 		s+="\n";
+		if(counts[0] > 0) {				s += counts[0] + " Marines\n";			}
+		if(counts[1] > 0) {				s += counts[1] + " Marauders\n";	}
+		if(counts[2] > 0) {				s += counts[2] + " Ghosts\n";	}
+		if(counts[3] > 0) {				s += counts[3] + " Reapers\n";	}
+		if(counts[4] > 0) {				s += counts[4] + " Hellions\n";	}
+		if(counts[5] > 0) {				s += counts[5] + " Siege Tanks\n";	}
+		if(counts[6] > 0) {				s += counts[6] + " Thors\n";	}
+		if(counts[7] > 0) {				s += counts[7] + " Vikings\n";	}
+		if(counts[8] > 0) {				s += counts[8] + " Medivacs\n";	}
+		if(counts[9] > 0) {				s += counts[9] + " Banshees\n";	}
+		if(counts[10] > 0) {			s += counts[10] + " Ravens\n";	}
+		if(counts[11] > 0) {			s += counts[11] + " Battlecruisers\n";	}
+		if(counts[12] > 0) {			s += counts[12] + " Supply Depots\n";	}
+
+		s+="\n";
+		for(int i = 0; i < objectNames.size(); i++) {
+			name=objectNames.get(i);
+			if(!name.equals("Marine") && !name.equals("Marauder") && !name.equals("Ghost") && 
+					!name.equals("Reaper") && !name.equals("Hellion") && 
+					!name.equals("SiegeTank") && !name.equals("Thor") && 
+					!name.equals("Viking") && !name.equals("Medivac") && 
+					!name.equals("Banshee") && !name.equals("Raven") && 
+					!name.equals("Battlecruiser") && !name.equals("SupplyDepot")) {
+				s+=name;
+				s+="\n";
+			}
+			
+			
+		}
+		
+		
+		return s;
+	}
+
+	
+	/*
 		for(int i = 0; i < objects.size(); i++) {
 			name = objects.get(i).getName();
 			if(name.equals("Barracks") || name.equals("Factory") || name.equals("Starport")) {
@@ -1943,11 +2031,7 @@ public class Model {
 			s += name;
 			s += "\n";
 		}
-		
-		
-		return s;
-	}
-
+	 */
 	public int freeGeysers() {
 		int g= 0;
 		for(int i = 0; i < bases.size(); i++) {

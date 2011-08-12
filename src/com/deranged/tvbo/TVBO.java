@@ -1,12 +1,10 @@
 package com.deranged.tvbo;
 //git@github.com:cboursnell/TVBO.git
 
-// TODO Add support for reactor. Possibly remove progress and buildtime for making units and research
-//        and use only the progress of 'constructing' and 'constructing2'
-//      Add maxQueueLength which is 1 for normal and 2 for with reactor
-//
-//      Add SCActionScout that takes 1 minute and uses up 1 SCV
-//      ADD SCActionScan that uses up 50 energy
+
+// TODO 
+//       New addons try to guess what they should be added to
+//       setTotalsText() updating
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -14,6 +12,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.SystemColor;
+
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -35,6 +35,7 @@ import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 
 public class TVBO {
 
@@ -59,7 +60,6 @@ public class TVBO {
 	private JLabel		    totalsLabel;
 	private JTextArea	    textArea;
 	private JPanel		   buttonsPanel;
-	private JTextField	    textField;
 	private JButton		    loadButton;
 	private JButton		    saveButton;
 	private JButton		    clearButton;
@@ -67,6 +67,9 @@ public class TVBO {
 
 	private int frameWidth=1600;
 	private int frameHeight=1000;
+	
+	JFileChooser fc; // beta
+	File cwd;
 
 	public static void main(String[] args) {
 		try {
@@ -94,6 +97,7 @@ public class TVBO {
 	}
 
 	private void initialize() {
+		fc = new JFileChooser(); // beta
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.control);
 		viewPanel = new View(model);
@@ -136,40 +140,40 @@ public class TVBO {
 		totalsPanel.setBackground(SystemColor.control);
 		GroupLayout gl_sidePanel = new GroupLayout(sidePanel);
 		gl_sidePanel.setHorizontalGroup(
-				gl_sidePanel.createParallelGroup(Alignment.LEADING)
+			gl_sidePanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_sidePanel.createSequentialGroup()
-						.addGap(3)
-						.addGroup(gl_sidePanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(unitsPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-								.addGroup(gl_sidePanel.createSequentialGroup()
-										.addComponent(buildingsPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-										.addPreferredGap(ComponentPlacement.RELATED))
-										.addGroup(gl_sidePanel.createSequentialGroup()
-												.addComponent(researchPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-												.addPreferredGap(ComponentPlacement.RELATED))
-												.addGroup(gl_sidePanel.createSequentialGroup()
-														.addComponent(buttonsPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-														.addPreferredGap(ComponentPlacement.RELATED))
-														.addGroup(gl_sidePanel.createSequentialGroup()
-																.addComponent(totalsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																.addPreferredGap(ComponentPlacement.RELATED)))
-																.addGap(3))
-				);
+					.addGap(3)
+					.addGroup(gl_sidePanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(unitsPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+						.addGroup(gl_sidePanel.createSequentialGroup()
+							.addComponent(buildingsPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(gl_sidePanel.createSequentialGroup()
+							.addComponent(researchPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(gl_sidePanel.createSequentialGroup()
+							.addComponent(buttonsPanel, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(gl_sidePanel.createSequentialGroup()
+							.addComponent(totalsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGap(3))
+		);
 		gl_sidePanel.setVerticalGroup(
-				gl_sidePanel.createParallelGroup(Alignment.LEADING)
+			gl_sidePanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_sidePanel.createSequentialGroup()
-						.addGap(3)
-						.addComponent(unitsPanel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGap(3)
-						.addComponent(buildingsPanel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGap(3)
-						.addComponent(researchPanel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGap(3)
-						.addComponent(totalsPanel, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-						.addGap(3)
-						.addComponent(buttonsPanel, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-						.addGap(3))
-				);
+					.addGap(3)
+					.addComponent(unitsPanel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
+					.addComponent(buildingsPanel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
+					.addComponent(researchPanel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
+					.addComponent(totalsPanel, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+					.addGap(3)
+					.addComponent(buttonsPanel, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+					.addGap(3))
+		);
 		totalsLabel = new JLabel("Totals");
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
@@ -196,52 +200,41 @@ public class TVBO {
 						.addGap(3))
 				);
 		totalsPanel.setLayout(gl_totalsPanel);
-		textField = new JTextField();
-		textField.setColumns(10);
 		loadButton = new JButton("Load");
 		saveButton = new JButton("Save");
 		clearButton = new JButton("Clear");
-		clearButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				model.clear();
-				viewPanel.repaint();
-			}
-		});
 		printButton = new JButton("Print");
 		// BUTTONS PANEL //////////////////////////////////////////////////////////////////////////
 		GroupLayout gl_buttonsPanel = new GroupLayout(buttonsPanel);
 		gl_buttonsPanel.setHorizontalGroup(
-				gl_buttonsPanel.createParallelGroup(Alignment.LEADING)
+			gl_buttonsPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_buttonsPanel.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_buttonsPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-								.addGroup(gl_buttonsPanel.createSequentialGroup()
-										.addComponent(loadButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(saveButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-										.addGap(27))
-										.addGroup(gl_buttonsPanel.createSequentialGroup()
-												.addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(printButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)))
-												.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(gl_buttonsPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_buttonsPanel.createSequentialGroup()
+							.addComponent(loadButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(saveButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+							.addGap(27))
+						.addGroup(gl_buttonsPanel.createSequentialGroup()
+							.addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(printButton, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(47, Short.MAX_VALUE))
+		);
 		gl_buttonsPanel.setVerticalGroup(
-				gl_buttonsPanel.createParallelGroup(Alignment.LEADING)
+			gl_buttonsPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_buttonsPanel.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_buttonsPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(loadButton)
-								.addComponent(saveButton))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_buttonsPanel.createParallelGroup(Alignment.BASELINE)
-										.addComponent(clearButton)
-										.addComponent(printButton))
-										.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				);
+					.addGap(6)
+					.addGroup(gl_buttonsPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(loadButton)
+						.addComponent(saveButton))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_buttonsPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(clearButton)
+						.addComponent(printButton))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		buttonsPanel.setLayout(gl_buttonsPanel);
 		// UNITS PANEL ////////////////////////////////////////////////////////////////////////////
 		unitsLabel = new JLabel("Units");
@@ -451,22 +444,38 @@ public class TVBO {
 				viewPanel.repaint();
 			}
 		});
-
+		/// SAVE ////
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				model.setFileName(textField.getText());
-				model.save();	
+				int r = fc.showSaveDialog(frame);
+				if(cwd!=null) fc.setCurrentDirectory(cwd);
+				if(r==JFileChooser.APPROVE_OPTION) {
+					File file = fc.getSelectedFile();
+					cwd = fc.getCurrentDirectory();
+					model.save(file);
+				}
 			}
 		});
-
+		/// LOAD ////
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.setFileName(textField.getText());
-				if(model.load()) {
+				int r = fc.showOpenDialog(frame);
+				if(cwd!=null) fc.setCurrentDirectory(cwd);
+				if(r==JFileChooser.APPROVE_OPTION) {
+					File file = fc.getSelectedFile();
+					cwd = fc.getCurrentDirectory();
+					model.load(file);
 					model.reset();
 					model.play();
 					viewPanel.repaint();
-				}
+				} 
+				
+			}
+		});
+		clearButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.clear();
+				viewPanel.repaint();
 			}
 		});
 
