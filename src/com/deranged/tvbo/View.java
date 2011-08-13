@@ -409,7 +409,7 @@ public class View extends JPanel {
 			} else if(name.equals("ConcussiveShells")) {		g.drawImage(concussiveShellsImg, x, y, null);
 			} else if(name.equals("NitroPack")) {				g.drawImage(nitroPackImg, x, y, null);
 			} else if(name.equals("InfernalPreigniter")) {		g.drawImage(infernalPreIgniterImg, x, y, null);
-			} else if(name.equals("SiegeTech")) {				g.drawImage(siegetankImg, x, y, null);
+			} else if(name.equals("SiegeTech")) {				g.drawImage(siegeTechImg, x, y, null);
 			} else if(name.equals("250mmStrikeCannons")) {		g.drawImage(strikeCannonsImg, x, y, null);
 			} else if(name.equals("CaduceusReactor")) {			g.drawImage(caduceusReactorImg, x, y, null);
 			} else if(name.equals("CorvidReactor")) {			g.drawImage(corvidReactorImg, x, y, null);
@@ -454,7 +454,7 @@ public class View extends JPanel {
 			} else if(name.equals("+1 on gas")) {			g.drawImage(gasImg, x+4, y, null);
 			} else if(name.equals("1 off gas")) {			g.drawImage(mineralsImg, x, y, null);
 			} else {
-				System.out.println("\""+name + "\" not found in <drawIcon>");
+				//System.out.println("\""+name + "\" not found in <drawIcon>");
 			}
 		}
 	}
@@ -502,7 +502,7 @@ public class View extends JPanel {
 			g.drawImage(concussiveShellsImg, x, y, null);
 			g.drawImage(nitroPackImg, x, y, null);
 			g.drawImage(infernalPreIgniterImg, x, y, null);
-			g.drawImage(siegetankImg, x, y, null);
+			g.drawImage(siegeTechImg, x, y, null);
 			g.drawImage(strikeCannonsImg, x, y, null);
 			g.drawImage(caduceusReactorImg, x, y, null);
 			g.drawImage(corvidReactorImg, x, y, null);

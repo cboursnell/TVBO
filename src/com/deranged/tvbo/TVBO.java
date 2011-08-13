@@ -16,7 +16,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
@@ -67,8 +66,8 @@ public class TVBO {
 	private int frameWidth=1600;
 	private int frameHeight=1000;
 	
-	JFileChooser fc; // beta
-	File cwd;
+	private JFileChooser fc; // beta
+	private File cwd;
 
 	public static void main(String[] args) {
 		try {
